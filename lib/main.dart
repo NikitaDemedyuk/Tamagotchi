@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    theme: ThemeData.dark(),
+    theme: ThemeData.light(),
     title: 'Navigation Basics',
     home: HomeScreen(),
   ));
@@ -16,108 +16,73 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  List<Widget> _widgetOptions = <Widget> [
+    Container(
+      color: Colors.brown,
+    ),
+    Container(
+      color: Colors.red,
+      child: Center(
+        child: Text(
+          'Will be implemented later',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+            color: Colors.black87,
+          ),
+        ),
+      ),
+
+    ),
+    Container(
+      color: Colors.black12,
+      child: Switch(
+        activeTrackColor: Colors.lightGreenAccent,
+        activeColor: Colors.green,
+        value: false,
+        onChanged: (bool value) {
+        },
+      ),
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    Widget progressSection = Container(
-
-    );
-
-    Widget buttonSection = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Column(
-          children: <Widget>[
-            IconButton(
-              color: Colors.amber,
-              icon: const Icon(Icons.home),
-              tooltip: 'Go to home screen',
-              onPressed: () {},
-            ),
-            Text(
-              'HOME',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Colors.amber,
-              ),
-            )
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            IconButton(
-              color: Colors.amber,
-              icon: const Icon(Icons.screen_lock_portrait),
-              tooltip: 'Go to home screen',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SecondScreen()),
-                );
-              },
-            ),
-            Text(
-              'SECOND SCREEN',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Colors.amber,
-              ),
-            )
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            IconButton(
-              color: Colors.amber,
-              icon: const Icon(Icons.wb_sunny_outlined),
-              tooltip: 'Go to home screen',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SelectThemeScreen()),
-                );
-              },
-            ),
-            Text(
-              'THEME',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Colors.amber,
-              ),
-            )
-          ],
-        )
-      ],
-    );
-
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 50,
+        title: Text('Home screen'),
       ),
       body: Container(
-        color: Colors.brown,
-        child: Column(
-          children: [
-            Flexible(
-              flex: 3,
-              child: Container(
-                color: Colors.purple,
-                child: buttonSection,
-              ),
-            ),
-
-            Container(
-              height: 70,
-              color: Colors.black45,
-              child: buttonSection,
-            ),
-          ],
-        ),
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem> [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'HOME',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.screen_lock_portrait),
+            label: 'SECOND SCREEN',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wb_sunny_outlined),
+            label: 'THEME',
+          ),
+        ],
+        selectedItemColor: Colors.amber,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
