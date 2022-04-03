@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:tamagotchi/homeScreen.dart';
+import 'package:tamagotchi/secondScreen.dart';
+import 'package:tamagotchi/settingsScreen.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
 import 'package:tamagotchi/theme/theme_manager.dart';
 
 ThemeManager _themeManager = ThemeManager();
 
 void main() {
-  runApp(HomeScreen());
+  runApp(App());
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class App extends StatefulWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<App> createState() => _AppState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
+class _AppState extends State<App> {
   int _selectedIndex = 0;
 
   @override
@@ -33,46 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   themeListener() {
     if (mounted) {
-      setState(() {
-
-      });
+      setState(() {});
     }
   }
 
-  List<Widget> _widgetOptions = <Widget> [
-    Container(
-
-    ),
-    Container(
-      color: Colors.white12,
-      child: Center(
-        child: Text(
-          'Will be implemented later',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-          ),
-        ),
-      ),
-
-    ),
-    Container(
-      color: Colors.black12,
-      alignment: Alignment.topCenter,
-      child: Container(
-        margin: EdgeInsets.all(20),
-        //padding: EdgeInsets.all(30.0),
-        child: Text(
-          'SETTINGS',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black87,
-          ),
-        ),
-      ),
-    ),
+  List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
+    SecondScreen(),
+    SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -91,15 +61,19 @@ class _HomeScreenState extends State<HomeScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('TAMAGOTCHI'),
-          actions: [Switch(value: _themeManager.themeMode == ThemeMode.dark, onChanged: (newValue) {
-            _themeManager.toogleTheme(newValue);
-          })],
+          actions: [
+            Switch(
+                value: _themeManager.themeMode == ThemeMode.dark,
+                onChanged: (newValue) {
+                  _themeManager.toogleTheme(newValue);
+                })
+          ],
         ),
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem> [
+          items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'HOME',
@@ -121,4 +95,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
