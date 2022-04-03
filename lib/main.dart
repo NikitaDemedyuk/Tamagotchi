@@ -8,7 +8,6 @@ void main() {
   runApp(HomeScreen());
 }
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -19,8 +18,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
 
   @override
   void dispose() {
@@ -47,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     ),
     Container(
-      color: Colors.red,
+      color: Colors.white12,
       child: Center(
         child: Text(
           'Will be implemented later',
@@ -62,6 +59,19 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Container(
       color: Colors.black12,
+      alignment: Alignment.topCenter,
+      child: Container(
+        margin: EdgeInsets.all(20),
+        //padding: EdgeInsets.all(30.0),
+        child: Text(
+          'SETTINGS',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+            color: Colors.black87,
+          ),
+        ),
+      ),
     ),
   ];
 
@@ -74,12 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: _themeManager.themeMode,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Home screen'),
+          title: Text('TAMAGOTCHI'),
           actions: [Switch(value: _themeManager.themeMode == ThemeMode.dark, onChanged: (newValue) {
             _themeManager.toogleTheme(newValue);
           })],
@@ -102,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'THEME',
             ),
           ],
-          selectedItemColor: Colors.amber,
+          //selectedItemColor: Colors.amber,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
         ),
