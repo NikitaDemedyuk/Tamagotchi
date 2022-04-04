@@ -9,11 +9,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Widget buttonInHomeScreen(String textInButton) {
+  Widget buttonInHomeScreen(String textInButton, double width, double height) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        fixedSize: const Size(75, 75),
-        shape: const CircleBorder(),
+        primary: Colors.black,
+        fixedSize: Size(width, height),
+        shape: CircleBorder(),
+
       ),
       child: Align(
         alignment: Alignment.center,
@@ -26,7 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       onPressed: () {
+
       },
+    );
+  }
+
+  Widget buttonSection () {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        buttonInHomeScreen('AAAA', 70, 70),
+        buttonInHomeScreen('FEED', 90, 90),
+        buttonInHomeScreen('BBBB', 70, 70),
+      ],
     );
   }
 
@@ -35,12 +49,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          color: Colors.brown,
-          child: Column(
+          child: Row(
             children: [
-              buttonInHomeScreen('FEED'),
-              buttonInHomeScreen('WATER'),
-              buttonInHomeScreen('C'),
+              Container(
+                padding: const EdgeInsets.all(10),
+                color: Colors.brown,
+                child: buttonSection(),
+              ),
+              Expanded(
+                //flex: 3,
+                child: Image.asset(
+                  'images/Ben.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
             ],
           ),
         ),
