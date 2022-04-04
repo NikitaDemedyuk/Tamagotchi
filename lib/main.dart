@@ -3,9 +3,6 @@ import 'package:tamagotchi/homeScreen.dart';
 import 'package:tamagotchi/secondScreen.dart';
 import 'package:tamagotchi/settingsScreen.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
-import 'package:tamagotchi/theme/theme_manager.dart';
-
-ThemeManager _themeManager = ThemeManager();
 
 void main() {
   runApp(App());
@@ -21,24 +18,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   int _selectedIndex = 0;
 
-  @override
-  void dispose() {
-    _themeManager.removeListener(themeListener);
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _themeManager.addListener(themeListener);
-    super.initState();
-  }
-
-  themeListener() {
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
   List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SecondScreen(),
@@ -51,22 +30,29 @@ class _AppState extends State<App> {
     });
   }
 
+  bool _light = false;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: _themeManager.themeMode,
+      //debugShowCheckedModeBanner: false,
+      //theme: lightTheme,
+      //darkTheme: darkTheme,
+      //themeMode: _themeManager.themeMode,
+      theme: _light ? darkTheme : lightTheme ,
       home: Scaffold(
         appBar: AppBar(
           title: Text('TAMAGOTCHI'),
+          //actions: [
           actions: [
             Switch(
-                value: _themeManager.themeMode == ThemeMode.dark,
-                onChanged: (newValue) {
-                  _themeManager.toogleTheme(newValue);
-                })
+              value: _light,
+              onChanged: (state) {
+                setState(() {
+                  _light = state;
+                });
+              },
+            ),
           ],
         ),
         body: Container(
