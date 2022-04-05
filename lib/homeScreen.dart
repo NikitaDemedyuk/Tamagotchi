@@ -51,16 +51,36 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           child: Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                color: Colors.brown,
-                child: buttonSection(),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.white,
+                  child: buttonSection(),
+                ),
               ),
               Expanded(
-                //flex: 3,
-                child: Image.asset(
-                  'images/Ben.png',
-                  fit: BoxFit.cover,
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        color: Colors.white,
+                        child: Icon(
+                          icon:
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Image.asset(
+                        'images/Ben.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
