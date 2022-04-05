@@ -9,7 +9,62 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Widget buttonInHomeScreen(String textInButton, double width, double height) {
+  final List _isFeed = [false, false, false, false, false];
+  int index = 0;
+
+  void _toggleFeed(int index) {
+    setState(() {
+      if (!_isFeed[index]) {
+        _isFeed[index] = true;
+      }
+    });
+  }
+
+  void _togglePlay(int index) {
+    setState(() {
+      if (_isFeed[index]) {
+        _isFeed[index] = false;
+      }
+    });
+  }
+
+
+  Widget iconsSection() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _isFeed[0] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+        _isFeed[1] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+        _isFeed[2] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+        _isFeed[3] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+        _isFeed[4] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+      ],
+    );
+  }
+
+  Widget imageSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Container(
+            color: Colors.white,
+            child: iconsSection(),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Image.asset(
+            'images/Ben.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buttonInHomeScreen(String textInButton, double width, double height, int indexButton) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Colors.black,
@@ -28,7 +83,17 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       onPressed: () {
-
+        if (indexButton == 1) {
+          if (index >= 0) {
+            _togglePlay(index);
+            index--;
+          }
+        } else if (indexButton == 2) {
+          if (index < 5) {
+            _toggleFeed(index);
+            index++;
+          }
+        }
       },
     );
   }
@@ -37,10 +102,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buttonInHomeScreen('AAAA', 70, 70),
-        buttonInHomeScreen('FEED', 90, 90),
-        buttonInHomeScreen('BBBB', 70, 70),
+        buttonInHomeScreen('PLAY', 70, 70, 1),
+        buttonInHomeScreen('FEED', 90, 90, 2),
+        buttonInHomeScreen('BBBB', 70, 70, 3),
       ],
+    );
+  }
+
+  Widget buttonsColumn() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      color: Colors.white,
+      child: buttonSection(),
     );
   }
 
@@ -53,35 +126,11 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  color: Colors.white,
-                  child: buttonSection(),
-                ),
+                child: buttonsColumn(),
               ),
               Expanded(
                 flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Colors.white,
-                        child: Icon(
-                          icon:
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Image.asset(
-                        'images/Ben.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
-                ),
+                child: imageSection(),
               ),
             ],
           ),
