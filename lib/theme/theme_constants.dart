@@ -8,10 +8,14 @@ class MyThemes {
       primary: Colors.amber,
       onPrimary: Colors.black,
     )),
+    appBarTheme: AppBarTheme(
+      color: Colors.black12,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedItemColor: Colors.amber,
     ),
     switchTheme: SwitchThemeData(
+
     ),
     iconTheme: IconThemeData(color: Colors.amber, opacity: 0.8),
   );
@@ -23,6 +27,9 @@ class MyThemes {
       primary: Colors.purple,
       onPrimary: Colors.white,
     )),
+    appBarTheme: AppBarTheme(
+      color: Colors.purple,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedItemColor: Colors.purple,
     ),
