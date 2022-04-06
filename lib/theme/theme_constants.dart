@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
+class MyThemes {
+  static final darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(
+      primary: Colors.amber,
+      onPrimary: Colors.black,
+    )),
+    iconTheme: IconThemeData(color: Colors.amber, opacity: 0.8),
+  );
 
-ThemeData lightTheme = ThemeData(
+  static final lightTheme = ThemeData(
     brightness: Brightness.light,
-    splashColor: Colors.teal,
-    appBarTheme: AppBarTheme(
-      backgroundColor: Colors.blueAccent,
-    ));
-
-ThemeData darkTheme = ThemeData(
-  brightness: Brightness.dark,
-  canvasColor: Color(0xFF3B3D58),
-  splashColor: Colors.yellow,
-  unselectedWidgetColor: Colors.white60,
-  appBarTheme: AppBarTheme(
-    backgroundColor: Colors.black26,
-  ),
-);
-
+    elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(
+      primary: Colors.purple,
+      onPrimary: Colors.white,
+    )),
+    iconTheme: IconThemeData(color: Colors.black, opacity: 0.8),
+  );
+}

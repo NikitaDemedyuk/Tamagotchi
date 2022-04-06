@@ -35,11 +35,8 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //debugShowCheckedModeBanner: false,
-      //theme: lightTheme,
-      //darkTheme: darkTheme,
-      //themeMode: _themeManager.themeMode,
-      theme: _light ? darkTheme : lightTheme ,
+      debugShowCheckedModeBanner: false,
+      theme: _light ? MyThemes.darkTheme : MyThemes.lightTheme,
       home: Scaffold(
         appBar: AppBar(
           title: Text('TAMAGOTCHI'),

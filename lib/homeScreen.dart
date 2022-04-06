@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tamagotchi/theme/theme_constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final List _isFeed = [false, false, false, false, false];
   int index = 0;
 
@@ -28,16 +29,21 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   Widget iconsSection() {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _isFeed[0] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
-        _isFeed[1] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
-        _isFeed[2] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
-        _isFeed[3] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
-        _isFeed[4] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _isFeed[0] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+            _isFeed[1] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+            _isFeed[2] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+            _isFeed[3] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+            _isFeed[4] ? Icon(Icons.fastfood) : Icon(Icons.fastfood_outlined),
+          ],
+        ),
       ],
     );
   }
@@ -49,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Expanded(
           flex: 1,
           child: Container(
-            color: Colors.white,
+            padding: EdgeInsets.all(10.0),
+            //color: Colors.tealAccent,
             child: iconsSection(),
           ),
         ),
@@ -64,47 +71,45 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buttonInHomeScreen(String textInButton, double width, double height, int indexButton) {
+  Widget buttonAction(IconData iconInButton, double width, double height,
+      double sizeIcon, Color colorButton, int indexButton) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Colors.black,
         fixedSize: Size(width, height),
         shape: CircleBorder(),
-
       ),
       child: Align(
         alignment: Alignment.center,
-        child: Text(
-          textInButton,
-          style: TextStyle(
-            fontFamily: 'Avenir',
-            fontSize: 12.0,
-          ),
+        child: Icon(
+          iconInButton,
+          size: sizeIcon,
         ),
       ),
       onPressed: () {
         if (indexButton == 1) {
-          if (index >= 0) {
+          if (index == 0) {
             _togglePlay(index);
-            index--;
+          } else if (index > 0) {
+            --index;
+            _togglePlay(index);
           }
         } else if (indexButton == 2) {
           if (index < 5) {
             _toggleFeed(index);
-            index++;
+            ++index;
           }
         }
       },
     );
   }
 
-  Widget buttonSection () {
+  Widget buttonSection() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buttonInHomeScreen('PLAY', 70, 70, 1),
-        buttonInHomeScreen('FEED', 90, 90, 2),
-        buttonInHomeScreen('BBBB', 70, 70, 3),
+        buttonAction(Icons.videogame_asset, 70, 70, 35.0, Colors.green, 1),
+        buttonAction(Icons.set_meal_rounded, 90, 90, 40.0, Colors.blue, 2),
+        buttonAction(Icons.videocam, 70, 70, 35.0, Colors.redAccent, 3),
       ],
     );
   }
@@ -112,28 +117,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buttonsColumn() {
     return Container(
       padding: const EdgeInsets.all(10),
-      color: Colors.white,
+      //color: Colors.amber,
       child: buttonSection(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: buttonsColumn(),
-              ),
-              Expanded(
-                flex: 3,
-                child: imageSection(),
-              ),
-            ],
-          ),
+    return Scaffold(
+      body: Container(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: buttonsColumn(),
+            ),
+            Expanded(
+              flex: 3,
+              child: imageSection(),
+            ),
+          ],
         ),
       ),
     );
