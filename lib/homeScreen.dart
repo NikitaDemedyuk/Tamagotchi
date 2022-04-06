@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Expanded(
           flex: 3,
           child: Image.asset(
-            'images/Ben.png',
+            'images/ben2011.webp',
             fit: BoxFit.cover,
           ),
         ),
