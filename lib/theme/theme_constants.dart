@@ -12,10 +12,16 @@ class MyThemes {
       color: Colors.black12,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.black,
       selectedItemColor: Colors.amber,
     ),
     switchTheme: SwitchThemeData(
-
+      trackColor: MaterialStateProperty.resolveWith((states) {
+        return Colors.amber[200];
+      }),
+      thumbColor: MaterialStateProperty.resolveWith((states) {
+        return Colors.amber;
+      }),
     ),
     iconTheme: IconThemeData(color: Colors.amber, opacity: 0.8),
   );
@@ -31,7 +37,16 @@ class MyThemes {
       color: Colors.purple,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
       selectedItemColor: Colors.purple,
+    ),
+    switchTheme: SwitchThemeData(
+      trackColor: MaterialStateProperty.resolveWith((states) {
+        return Colors.purple[200];
+      }),
+      thumbColor: MaterialStateProperty.resolveWith((states) {
+        return Colors.purple;
+      }),
     ),
     iconTheme: IconThemeData(color: Colors.black, opacity: 0.8),
   );

@@ -8,6 +8,7 @@ void main() {
   runApp(App());
 }
 
+int selectedIndex = 0;
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -17,7 +18,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  int _selectedIndex = 0;
 
   List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
@@ -27,40 +27,38 @@ class _AppState extends State<App> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-      theme: light ? MyThemes.darkTheme : MyThemes.lightTheme,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('TAMAGOTCHI'),
-        ),
-        body: Container(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'HOME',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.screen_lock_portrait),
-              label: 'SECOND SCREEN',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.wb_sunny_outlined),
-              label: 'THEME',
-            ),
-          ],
-          //selectedItemColor: Colors.amber,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
+      home: Theme(
+        data: light ? MyThemes.darkTheme : MyThemes.lightTheme,
+        child: Scaffold(
+          body: Container(
+            child: _widgetOptions.elementAt(selectedIndex),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'HOME',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.screen_lock_portrait),
+                label: 'SECOND SCREEN',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.wb_sunny_outlined),
+                label: 'THEME',
+              ),
+            ],
+            //selectedItemColor: Colors.amber,
+            currentIndex: selectedIndex,
+            onTap: _onItemTapped,
+          ),
         ),
       ),
     );
