@@ -30,27 +30,13 @@ class _AppState extends State<App> {
     });
   }
 
-  bool _light = false;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: _light ? MyThemes.darkTheme : MyThemes.lightTheme,
       home: Scaffold(
         appBar: AppBar(
           title: Text('TAMAGOTCHI'),
           //actions: [
-          actions: [
-            Switch(
-              value: _light,
-              onChanged: (state) {
-                setState(() {
-                  _light = state;
-                });
-              },
-            ),
-          ],
         ),
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),

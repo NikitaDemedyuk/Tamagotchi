@@ -8,36 +8,40 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
+bool _light = false;
+
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool light = false;
 
   @override
   Widget build(BuildContext context) {
-       return Scaffold(
-        body: Container(
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Light/dark mode'
-                    ),
-                    Switch(
-                        value: light,
-                        onChanged: (state) {
-                          setState(() {
-                            light = state;
-                          });
-                        })
-                  ],
-                ),
-              ],
+       return Theme(
+         data: _light ? MyThemes.darkTheme : MyThemes.lightTheme,
+         child: Scaffold(
+           body: Container(
+            child: Center(
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Light/dark mode'
+                      ),
+                      Switch(
+                          value: _light,
+                          onChanged: (state) {
+                            setState(() {
+                              _light = state;
+                            });
+                          })
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
+      ),
+       );
   }
 }

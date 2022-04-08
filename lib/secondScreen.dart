@@ -10,14 +10,12 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text(
-          'Will be implemented later',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontFamily: 'Avenir',
-          ),
+    return Center(
+      child: Text(
+        'Will be implemented later',
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'Avenir',
         ),
       ),
     );
