@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tamagotchi/main.dart';
+import 'package:tamagotchi/homeScreen.dart';
+import 'package:tamagotchi/secondScreen.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
+
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -8,14 +12,14 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-bool _light = false;
+bool light = false;
 
 class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
        return Theme(
-         data: _light ? MyThemes.darkTheme : MyThemes.lightTheme,
+         data: light ? MyThemes.darkTheme : MyThemes.lightTheme,
          child: Scaffold(
            body: Container(
             child: Center(
@@ -29,10 +33,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         'Light/dark mode'
                       ),
                       Switch(
-                          value: _light,
+                          value: light,
                           onChanged: (state) {
                             setState(() {
-                              _light = state;
+                              light = state;
                             });
                           })
                     ],

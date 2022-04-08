@@ -8,6 +8,7 @@ void main() {
   runApp(App());
 }
 
+
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
 
@@ -32,11 +33,12 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
+      theme: light ? MyThemes.darkTheme : MyThemes.lightTheme,
       home: Scaffold(
         appBar: AppBar(
           title: Text('TAMAGOTCHI'),
-          //actions: [
         ),
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),

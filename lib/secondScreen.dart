@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tamagotchi/theme/theme_constants.dart';
+import 'package:tamagotchi/main.dart';
+import 'package:tamagotchi/homeScreen.dart';
+import 'package:tamagotchi/settingsScreen.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
@@ -10,12 +14,15 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Will be implemented later',
-        style: TextStyle(
-          fontSize: 20.0,
-          fontFamily: 'Avenir',
+    return Theme(
+      data: light ? MyThemes.darkTheme : MyThemes.lightTheme,
+      child: Center(
+        child: Text(
+          'Will be implemented later',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontFamily: 'Avenir',
+          ),
         ),
       ),
     );
