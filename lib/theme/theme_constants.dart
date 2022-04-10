@@ -12,7 +12,7 @@ class MyThemes {
       color: Colors.black12,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black12,
       selectedItemColor: Colors.amber,
     ),
     switchTheme: SwitchThemeData(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:tamagotchi/main.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,9 +11,26 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final List _isFeed = [false, false, false, false, false];
   int index = 0;
+
+  late AnimationController animationController;
+  late Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
+    animation = Tween(begin: 2.0, end: 15.0).animate(animationController)..addListener(() {
+      setState(() {
+
+      });
+    });
+    animationController.repeat(reverse: true);
+    animationController.forward();
+
+  }
 
   void _toggleFeed(int index) {
     setState(() {
@@ -55,16 +74,55 @@ class _HomeScreenState extends State<HomeScreen> {
         Expanded(
           flex: 1,
           child: Container(
+            //color: Colors.black,
             padding: EdgeInsets.all(10.0),
-            //color: Colors.tealAccent,
             child: iconsSection(),
           ),
         ),
         Expanded(
           flex: 3,
-          child: Image.asset(
-            'images/ben2011.webp',
-            fit: BoxFit.cover,
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image.asset(
+                'images/ben2011.webp',
+                fit: BoxFit.fill,
+              ),
+              Positioned(
+                right: 100.0,
+                bottom: 130.0,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(
+                      color: Color.fromARGB(130, 237, 125, 58),
+                      blurRadius: animation.value,
+                      spreadRadius: animation.value,
+                    )]
+                  ),
+                  child: ElevatedButton(
+                      onPressed: (){
+                        if (index == 4) {
+                          _toggleFeed(index);
+                          ++index;
+                        }
+                        if (index < 4) {
+                          _toggleFeed(index);
+                          _toggleFeed(index + 1);
+                          index += 2;
+                        }
+                      },
+                      child: null,
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.amber.withOpacity(0.01),
+                        shape: CircleBorder(),
+                      ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -72,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buttonAction(IconData iconInButton, double width, double height,
-      double sizeIcon, Color colorButton, int indexButton) {
+      double sizeIcon, int indexButton) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         fixedSize: Size(width, height),
@@ -107,9 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buttonAction(Icons.videogame_asset, 70, 70, 35.0, Colors.green, 1),
-        buttonAction(Icons.set_meal_rounded, 90, 90, 40.0, Colors.blue, 2),
-        buttonAction(Icons.videocam, 70, 70, 35.0, Colors.redAccent, 3),
+        buttonAction(Icons.videogame_asset, 70, 70, 35.0, 1),
+        buttonAction(Icons.set_meal_rounded, 90, 90, 40.0, 2),
+        buttonAction(Icons.videocam, 70, 70, 35.0, 3),
       ],
     );
   }
@@ -123,7 +181,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('TAMAGOTCHI'),

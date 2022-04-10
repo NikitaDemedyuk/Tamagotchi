@@ -18,12 +18,12 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
-  List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SecondScreen(),
     SettingsScreen(),
   ];
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -35,7 +35,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Theme(
-        data: light ? MyThemes.darkTheme : MyThemes.lightTheme,
+        data: light? MyThemes.darkTheme : MyThemes.lightTheme,
         child: Scaffold(
           body: Container(
             child: _widgetOptions.elementAt(selectedIndex),
@@ -55,7 +55,6 @@ class _AppState extends State<App> {
                 label: 'THEME',
               ),
             ],
-            //selectedItemColor: Colors.amber,
             currentIndex: selectedIndex,
             onTap: _onItemTapped,
           ),

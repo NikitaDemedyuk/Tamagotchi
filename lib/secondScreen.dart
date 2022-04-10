@@ -14,19 +14,16 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: light ? MyThemes.darkTheme : MyThemes.lightTheme,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('TAMAGOTCHI'),
-        ),
-        body: Center(
-          child: Text(
-            'Will be implemented later',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontFamily: 'Avenir',
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('TAMAGOTCHI'),
+      ),
+      body: Center(
+        child: Text(
+          'Will be implemented later',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontFamily: 'Avenir',
           ),
         ),
       ),
