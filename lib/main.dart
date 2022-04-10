@@ -17,7 +17,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _AppState extends State<App> {
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SecondScreen(),

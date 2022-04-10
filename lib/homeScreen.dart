@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -11,22 +12,20 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _HomeScreenState extends State<HomeScreen> {
   final List _isFeed = [false, false, false, false, false];
   int index = 0;
-
-  late AnimationController animationController;
-  late Animation animation;
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
-    animation = Tween(begin: 2.0, end: 15.0).animate(animationController)..addListener(() {
-      setState(() {});
-    });
-    animationController.repeat(reverse: true);
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 
   void _toggleFeed(int index) {
     setState(() {
@@ -84,20 +83,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 'images/ben2011.webp',
                 fit: BoxFit.fill,
               ),
-              Positioned(
-                right: 100.0,
-                bottom: 130.0,
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [BoxShadow(
-                      color: Color.fromARGB(130, 237, 125, 58),
-                      blurRadius: animation.value,
-                      spreadRadius: animation.value,
-                    )]
-                  ),
+              Center(
+                child: AvatarGlow(
+                  glowColor: Colors.amber,
+                  duration: Duration(seconds: 2),
                   child: ElevatedButton(
                       onPressed: (){
                         if (index == 4) {
@@ -116,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         shape: CircleBorder(),
                       ),
                   ),
+                  endRadius: 100,
                 ),
               ),
             ],
@@ -177,11 +167,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('TAMAGOTCHI'),
