@@ -23,13 +23,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.initState();
     animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
     animation = Tween(begin: 2.0, end: 15.0).animate(animationController)..addListener(() {
-      setState(() {
-
-      });
+      setState(() {});
     });
     animationController.repeat(reverse: true);
-    animationController.forward();
-
   }
 
   void _toggleFeed(int index) {

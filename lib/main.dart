@@ -17,7 +17,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SecondScreen(),
@@ -62,4 +62,7 @@ class _AppState extends State<App> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
