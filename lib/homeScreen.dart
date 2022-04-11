@@ -113,10 +113,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buttonActionOnImage(Color color, double endRadius, double opacity,
-      int secondDurtion, int action) {
+      int secondDuration, int action) {
     return AvatarGlow(
       glowColor: color,
-      duration: Duration(seconds: secondDurtion),
+      duration: Duration(seconds: secondDuration),
       child: ElevatedButton(
         onPressed: () {
           if (action == 1) {
@@ -244,12 +244,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child:
-                            buttonActionOnImage(Colors.red, 90, 0.01, 2, 3),
+                            buttonActionOnImage(
+                                Colors.red, 90, 0.01, 5, 3),
                           ),
                           Align(
                             alignment: Alignment.bottomLeft,
                             child: buttonActionOnImage(
-                                Colors.red, 120, 0.01, 2, 3),
+                                Colors.red, 120, 0.01, 5, 3),
                           ),
                           Align(
                             alignment: Alignment.centerRight,
@@ -259,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Align(
                             alignment: Alignment.center,
                             child: buttonActionOnImage(
-                                Colors.amber, 100, 0.01, 2, 2),
+                                Colors.amber, 100, 0.01, 3, 2),
                           ),
                           Align(
                             alignment: Alignment.topRight,
@@ -274,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Align(
                             alignment: Alignment.topCenter,
                             child: buttonActionOnImage(
-                                Colors.red, 110, 0.01, 2, 3),
+                                Colors.red, 110, 0.01, 5, 3),
                           ),
                         ],
                       ),
