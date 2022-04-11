@@ -8,7 +8,7 @@ void main() {
   runApp(App());
 }
 
-int selectedIndex = 0;
+
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -18,6 +18,9 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+
+  int selectedIndex = 0;
+
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SecondScreen(),

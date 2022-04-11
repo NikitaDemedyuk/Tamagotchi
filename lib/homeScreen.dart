@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List _isFeed = [false, false, false, false, false];
+  final List _isHappy = [false, false, false, false, false];
   int index = 0;
 
   @override
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget iconsSection() {
+  Widget iconsSectionFeed() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -62,6 +63,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget iconsSectionHappy() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _isHappy[0] ? Icon(Icons.emoji_emotions) : Icon(Icons.emoji_emotions_outlined),
+            _isHappy[1] ? Icon(Icons.emoji_emotions) : Icon(Icons.emoji_emotions_outlined),
+            _isHappy[2] ? Icon(Icons.emoji_emotions) : Icon(Icons.emoji_emotions_outlined),
+            _isHappy[3] ? Icon(Icons.emoji_emotions) : Icon(Icons.emoji_emotions_outlined),
+            _isHappy[4] ? Icon(Icons.emoji_emotions) : Icon(Icons.emoji_emotions_outlined),
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget imageSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,9 +89,14 @@ class _HomeScreenState extends State<HomeScreen> {
         Expanded(
           flex: 1,
           child: Container(
-            //color: Colors.black,
-            padding: EdgeInsets.all(10.0),
-            child: iconsSection(),
+            //color: Colors.tealAccent,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  iconsSectionHappy(),
+                  iconsSectionFeed(),
+                ],
+            ),
           ),
         ),
         Expanded(
@@ -83,21 +108,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 'images/ben2011.webp',
                 fit: BoxFit.fill,
               ),
-              Center(
+              Align(
+                alignment: Alignment.topCenter,
+                child: AvatarGlow(
+                  glowColor: Colors.red,
+                  duration: Duration(seconds: 2),
+                  child: ElevatedButton(
+                    onPressed: (){
+                      if (index == 4) {
+                        _toggleFeed(index);
+                        ++index;
+                      }
+                      if (index < 4) {
+                        _toggleFeed(index);
+                        _toggleFeed(index + 1);
+                        index += 2;
+                      }
+                    },
+                    child: null,
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.amber.withOpacity(0.01),
+                      shape: CircleBorder(),
+                    ),
+                  ),
+                  endRadius: 100,
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
                 child: AvatarGlow(
                   glowColor: Colors.amber,
                   duration: Duration(seconds: 2),
                   child: ElevatedButton(
                       onPressed: (){
-                        if (index == 4) {
-                          _toggleFeed(index);
-                          ++index;
-                        }
-                        if (index < 4) {
-                          _toggleFeed(index);
-                          _toggleFeed(index + 1);
-                          index += 2;
-                        }
                       },
                       child: null,
                       style: ElevatedButton.styleFrom(

@@ -14,6 +14,8 @@ class SettingsScreen extends StatefulWidget {
 bool light = true;
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -36,7 +38,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onChanged: (state) {
                           setState(() {
                             light = state;
-
                           });
                         })
                   ],
