@@ -15,9 +15,6 @@ class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('TAMAGOTCHI'),
-      ),
       body: Center(
         child: Text(
           'Will be implemented later',

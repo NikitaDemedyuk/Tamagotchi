@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:tamagotchi/homeScreen.dart';
 import 'package:tamagotchi/secondScreen.dart';
@@ -7,8 +8,6 @@ import 'package:tamagotchi/theme/theme_constants.dart';
 void main() {
   runApp(App());
 }
-
-
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -41,11 +40,12 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      
-      home: Theme(
-        data: light? MyThemes.darkTheme : MyThemes.lightTheme,
-        child: Scaffold(
+    return  MaterialApp(
+        themeMode: ThemeMode.dark,
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('TAMAGOTCHI'),
+          ),
           body: Container(
             child: _widgetOptions.elementAt(selectedIndex),
           ),
@@ -68,7 +68,6 @@ class _AppState extends State<App> {
             onTap: _onItemTapped,
           ),
         ),
-      ),
     );
   }
 
