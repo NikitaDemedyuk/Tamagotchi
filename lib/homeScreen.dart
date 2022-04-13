@@ -1,8 +1,5 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tamagotchi/main.dart';
-import 'package:tamagotchi/theme/theme_constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -4,10 +4,13 @@ import 'package:tamagotchi/homeScreen.dart';
 import 'package:tamagotchi/secondScreen.dart';
 import 'package:tamagotchi/settingsScreen.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
+import 'package:tamagotchi/theme/theme_manager.dart';
 
 void main() {
   runApp(App());
 }
+
+ThemeManager themeManager = ThemeManager();
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -27,8 +30,21 @@ class _AppState extends State<App> {
   ];
 
   @override
+  void dispose() {
+    themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
   void initState() {
     // add addListener to update settingsScreen
+    themeManager.addListener(themeListener);
+  }
+
+  themeListener(){
+    if(mounted){
+      setState(() {});
+    }
   }
 
 
@@ -41,7 +57,9 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-        themeMode: ThemeMode.dark,
+        theme: MyThemes.lightTheme,
+        darkTheme: MyThemes.darkTheme,
+        themeMode: themeManager.themeMode,
         home: Scaffold(
           appBar: AppBar(
             title: Text('TAMAGOTCHI'),
@@ -70,7 +88,4 @@ class _AppState extends State<App> {
         ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tamagotchi/theme/theme_constants.dart';
-import 'package:tamagotchi/main.dart';
-import 'package:tamagotchi/homeScreen.dart';
-import 'package:tamagotchi/settingsScreen.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);

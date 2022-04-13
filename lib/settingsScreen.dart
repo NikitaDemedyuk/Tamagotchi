@@ -1,9 +1,5 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:tamagotchi/main.dart';
-import 'package:tamagotchi/homeScreen.dart';
-import 'package:tamagotchi/secondScreen.dart';
-import 'package:tamagotchi/theme/theme_constants.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -12,10 +8,7 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-bool light = true;
-
 class _SettingsScreenState extends State<SettingsScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +22,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Text('Light/dark mode'),
                   Switch(
-                      value: light,
-                      onChanged: (state) {
+                      value: themeManager.themeMode == ThemeMode.dark,
+                      onChanged: (newValue) {
                         setState(() {
-                          light = state;
+                          themeManager.toggleTheme(newValue);
                         });
                       })
                 ],
