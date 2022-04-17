@@ -1,8 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:tamagotchi/homeScreen.dart';
-import 'package:tamagotchi/secondScreen.dart';
-import 'package:tamagotchi/settingsScreen.dart';
+import 'package:tamagotchi/view/homeScreen.dart';
+import 'package:tamagotchi/view/secondScreen.dart';
+import 'package:tamagotchi/view/settingsScreen.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
 import 'package:tamagotchi/theme/theme_manager.dart';
 

@@ -38,6 +38,7 @@ dependencies:
   avatar_glow: ^2.0.2
   adaptive_theme: ^2.3.1
   theme_mode_handler: ^3.0.0
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
