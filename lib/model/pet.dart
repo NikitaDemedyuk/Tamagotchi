@@ -1,14 +1,17 @@
-class Pet {
+import 'package:equatable/equatable.dart';
 
-  Pet (String name_, String imagePath_, List <bool> isFeed_, List <bool> isHappy_) {
-    name = name_;
-    imagePath = imagePath_;
-    isFeed = isFeed_;
-    isHappy = isHappy_;
-  }
+class Pet extends Equatable {
 
-  String name = "Tom";
-  String imagePath = "";
-  List <bool> isFeed = [false, false, false, false, false];
-  List <bool> isHappy = [false, false, false, false, false];
+  Pet (this.name, this.imagePath, this.isFeed, this.isHappy);
+
+  final String name;
+  final String imagePath;
+  int indexFeed = 0;
+  List <bool> isFeed;
+  int indexHappy = 0;
+  List <bool> isHappy;
+
+  @override
+  List<Object> get props => [name, imagePath, isFeed, isHappy];
+
 }

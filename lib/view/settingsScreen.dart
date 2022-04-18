@@ -21,13 +21,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text('Light/dark mode'),
-                  Switch(
-                      value: themeManager.themeMode == ThemeMode.dark,
-                      onChanged: (newValue) {
-                        setState(() {
-                          themeManager.toggleTheme(newValue);
-                        });
-                      })
                 ],
               ),
             ],

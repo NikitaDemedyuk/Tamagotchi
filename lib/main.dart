@@ -1,16 +1,11 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:tamagotchi/view/homeScreen.dart';
-import 'package:tamagotchi/view/secondScreen.dart';
-import 'package:tamagotchi/view/settingsScreen.dart';
-import 'package:tamagotchi/theme/theme_constants.dart';
-import 'package:tamagotchi/theme/theme_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tamagotchi/bloc/pet_bloc.dart';
+
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
-
-ThemeManager themeManager = ThemeManager();
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -21,71 +16,70 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
 
-  int selectedIndex = 0;
-
-  final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    SecondScreen(),
-    SettingsScreen(),
-  ];
-
-  @override
-  void dispose() {
-    themeManager.removeListener(themeListener);
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    // add addListener to update settingsScreen
-    themeManager.addListener(themeListener);
-  }
-
-  themeListener(){
-    if(mounted){
-      setState(() {});
-    }
-  }
-
-
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
+  final counterBloc = CounterBloc();
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-        theme: MyThemes.lightTheme,
-        darkTheme: MyThemes.darkTheme,
-        themeMode: themeManager.themeMode,
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('TAMAGOTCHI'),
+    return MaterialApp(
+          home: Scaffold(
+            appBar: AppBar(
+              title: Text('TAMAGOTCHI'),
+            ),
+            body: StreamBuilder(
+              stream: counterBloc.counterStream,
+              builder: (context, snapshot) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        counterBloc.eventSink.add(CounterAction.IncrementFeed);
+                      },
+                      child: null,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        counterBloc.eventSink.add(CounterAction.DecrementFeed);
+                      },
+                      child: null,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        counterBloc.eventSink.add(CounterAction.IncrementHappy);
+                      },
+                      child: null,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        counterBloc.eventSink.add(CounterAction.DecrementHappy);
+                      },
+                      child: null,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        counterBloc.ben.isFeed[0] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
+                        counterBloc.ben.isFeed[1] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
+                        counterBloc.ben.isFeed[2] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
+                        counterBloc.ben.isFeed[3] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
+                        counterBloc.ben.isFeed[4] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        counterBloc.ben.isHappy[0] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
+                        counterBloc.ben.isHappy[1] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
+                        counterBloc.ben.isHappy[2] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
+                        counterBloc.ben.isHappy[3] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
+                        counterBloc.ben.isHappy[4] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
-          body: Container(
-            child: _widgetOptions.elementAt(selectedIndex),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'HOME',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.screen_lock_portrait),
-                label: 'SECOND SCREEN',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.wb_sunny_outlined),
-                label: 'THEME',
-              ),
-            ],
-            currentIndex: selectedIndex,
-            onTap: _onItemTapped,
-          ),
-        ),
     );
   }
 }
