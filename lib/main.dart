@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tamagotchi/bloc/pet_bloc.dart';
+import 'package:tamagotchi/view/homeScreen.dart';
+import 'package:tamagotchi/view/secondScreen.dart';
+import 'package:tamagotchi/view/settingsScreen.dart';
 
 
 void main() {
@@ -14,9 +17,15 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
+final counterBloc = CounterBloc();
+
 class _AppState extends State<App> {
 
-  final counterBloc = CounterBloc();
+  final List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
+    SecondScreen(),
+    SettingsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,59 +34,26 @@ class _AppState extends State<App> {
             appBar: AppBar(
               title: Text('TAMAGOTCHI'),
             ),
-            body: StreamBuilder(
-              stream: counterBloc.counterStream,
-              builder: (context, snapshot) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        counterBloc.eventSink.add(CounterAction.IncrementFeed);
-                      },
-                      child: null,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        counterBloc.eventSink.add(CounterAction.DecrementFeed);
-                      },
-                      child: null,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        counterBloc.eventSink.add(CounterAction.IncrementHappy);
-                      },
-                      child: null,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        counterBloc.eventSink.add(CounterAction.DecrementHappy);
-                      },
-                      child: null,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        counterBloc.ben.isFeed[0] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
-                        counterBloc.ben.isFeed[1] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
-                        counterBloc.ben.isFeed[2] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
-                        counterBloc.ben.isFeed[3] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
-                        counterBloc.ben.isFeed[4] ? const Icon(Icons.fastfood) : const Icon(Icons.fastfood_outlined),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        counterBloc.ben.isHappy[0] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
-                        counterBloc.ben.isHappy[1] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
-                        counterBloc.ben.isHappy[2] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
-                        counterBloc.ben.isHappy[3] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
-                        counterBloc.ben.isHappy[4] ? const Icon(Icons.emoji_emotions) : const Icon(Icons.emoji_emotions_outlined),
-                      ],
-                    ),
-                  ],
-                );
-              },
+            body: Container(
+                  child: _widgetOptions.elementAt(0),
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'HOME',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.screen_lock_portrait),
+                  label: 'SECOND SCREEN',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.wb_sunny_outlined),
+                  label: 'THEME',
+                ),
+              ],
+              currentIndex: 0,
+              //onTap: _onItemTapped,
             ),
           ),
     );
