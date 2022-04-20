@@ -5,6 +5,8 @@ import 'package:tamagotchi/view/homeScreen.dart';
 import 'package:tamagotchi/view/secondScreen.dart';
 import 'package:tamagotchi/view/settingsScreen.dart';
 
+import 'bloc/screen_bloc.dart';
+import 'model/screen.dart';
 
 void main() {
   runApp(const App());
@@ -17,45 +19,68 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-final counterBloc = CounterBloc();
-
 class _AppState extends State<App> {
-
-  final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    SecondScreen(),
-    SettingsScreen(),
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-          home: Scaffold(
-            appBar: AppBar(
-              title: Text('TAMAGOTCHI'),
-            ),
-            body: Container(
-                  child: _widgetOptions.elementAt(0),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
+    return BlocProvider<NavigationCubit>(
+      create: (context) => NavigationCubit(),
+      child: MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('TAMAGOTCHI'),
+          ),
+          body: BlocBuilder<NavigationCubit, NavigationState>(
+              builder: (context, state) {
+            if (state.navbarItem == NavbarItem.home) {
+              return HomeScreen();
+            } else if (state.navbarItem == NavbarItem.settings) {
+              return SecondScreen();
+            } else if (state.navbarItem == NavbarItem.profile) {
+              return SettingsScreen();
+            }
+            return Container();
+          }),
+          bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
+              builder: (context, state) {
+            return BottomNavigationBar(
+              currentIndex: state.index,
+              showUnselectedLabels: false,
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'HOME',
+                  icon: Icon(
+                    Icons.home,
+                  ),
+                  label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.screen_lock_portrait),
-                  label: 'SECOND SCREEN',
+                  icon: Icon(
+                    Icons.settings,
+                  ),
+                  label: 'Settings',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.wb_sunny_outlined),
-                  label: 'THEME',
+                  icon: Icon(
+                    Icons.person,
+                  ),
+                  label: 'Profile',
                 ),
               ],
-              currentIndex: 0,
-              //onTap: _onItemTapped,
-            ),
-          ),
+              onTap: (index) {
+                if (index == 0) {
+                  BlocProvider.of<NavigationCubit>(context)
+                      .getNavBarItem(NavbarItem.home);
+                } else if (index == 1) {
+                  BlocProvider.of<NavigationCubit>(context)
+                      .getNavBarItem(NavbarItem.settings);
+                } else if (index == 2) {
+                  BlocProvider.of<NavigationCubit>(context)
+                      .getNavBarItem(NavbarItem.profile);
+                }
+              },
+            );
+          }),
+        ),
+      ),
     );
   }
 }

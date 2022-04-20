@@ -24,7 +24,6 @@ class CounterBloc {
   Stream<CounterAction> get eventStream => eventStreamController.stream;
 
   CounterBloc() {
-
     eventStream.listen((event) {
       if (event == CounterAction.incrementFeed) {
         if (ben.indexFeed < 5) {
@@ -46,8 +45,6 @@ class CounterBloc {
         if (ben.indexFeed > 0) {
           ben.indexFeed--;
           ben.isFeed[ben.indexFeed] = false;
-        } else if (ben.indexFeed == 0) {
-          ben.isFeed[ben.indexFeed] = false;
         }
       } else if (event == CounterAction.incrementHappy) {
         if (ben.indexHappy < 5) {
@@ -57,8 +54,6 @@ class CounterBloc {
       } else if (event == CounterAction.decrementHappy) {
         if (ben.indexHappy > 0) {
           ben.indexHappy--;
-          ben.isHappy[ben.indexHappy] = false;
-        } else if (ben.indexHappy == 0) {
           ben.isHappy[ben.indexHappy] = false;
         }
       } else if (event == CounterAction.reset) {
@@ -73,6 +68,11 @@ class CounterBloc {
       }
       counterSink.add(ben);
     });
+  }
+
+  void dispose() {
+    stateStreamController.close();
+    eventStreamController.close();
   }
 
 }
