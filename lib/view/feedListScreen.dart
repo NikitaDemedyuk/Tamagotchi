@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SecondScreen extends StatefulWidget {
-  const SecondScreen({Key? key}) : super(key: key);
+class FeedListScreen extends StatefulWidget {
+  const FeedListScreen({Key? key}) : super(key: key);
 
   @override
-  State<SecondScreen> createState() => _SecondScreenState();
+  State<FeedListScreen> createState() => _FeedListScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
+class _FeedListScreenState extends State<FeedListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

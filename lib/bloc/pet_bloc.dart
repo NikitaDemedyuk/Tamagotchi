@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:tamagotchi/model/pet.dart';
 
 enum CounterAction {
