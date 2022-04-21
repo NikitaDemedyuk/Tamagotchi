@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamagotchi/bloc/theme_bloc.dart';
 import 'package:tamagotchi/main.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +30,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   Switch(
-                      value: false,
-                      onChanged: (bool value) {
+                    value: false,
+                    onChanged:(bool value) {
 
-                      },
+                    },
                   ),
                 ],
               ),

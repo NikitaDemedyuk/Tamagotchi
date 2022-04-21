@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:tamagotchi/theme/theme_constants.dart';
 import '../model/screen.dart';
 
 class NavigationCubit extends Cubit<NavigationState> {

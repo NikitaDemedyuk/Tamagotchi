@@ -1,5 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../bloc/pet_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,6 +9,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+
 
 class _HomeScreenState extends State<HomeScreen> {
 
@@ -104,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
   Widget buttonAction(IconData iconInButton, double width, double height,
       double sizeIcon, int indexButton) {
     return ElevatedButton(
@@ -118,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
           size: sizeIcon,
         ),
       ),
-      onPressed: () {
+      onPressed: () async {
         if (indexButton == 1) {
           counterBloc.eventSink.add(CounterAction.decrementFeed);
         } else if (indexButton == 2) {
