@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tamagotchi/bloc/theme_bloc.dart';
 import 'package:tamagotchi/main.dart';
 import 'package:tamagotchi/providers/preference_provider.dart';
+import 'package:tamagotchi/theme/theme_constants.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -34,17 +35,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       fontSize: 18.0,
                     ),
                   ),
-                  StreamBuilder<Brightness>(
-                    stream: bloc.brightness,
+                  StreamBuilder<ThemeData>(
+                    stream: bloc.themeData,
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) return Container();
                       return Switch(
-                        value: (snapshot.data == Brightness.light) ? false : true,
+                        value: (snapshot.data == MyThemes.lightTheme) ? false : true,
                         onChanged: (bool value) {
                           if (value) {
-                            bloc.changeBrightness(Brightness.dark);
+                            bloc.changeTheme(MyThemes.darkTheme);
                           } else {
-                            bloc.changeBrightness(Brightness.light);
+                            bloc.changeTheme(MyThemes.lightTheme);
                           }
                           bloc.savePreferences();
                         },

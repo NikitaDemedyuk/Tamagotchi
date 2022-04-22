@@ -41,15 +41,12 @@ class _AppState extends State<App> {
                create: (BuildContext context) => PreferenceProvider(),
                child: Consumer <PreferenceProvider> (
                  builder: (context, provider, child) {
-                   return StreamBuilder <Brightness>(
-                     stream: provider.bloc.brightness,
+                   return StreamBuilder <ThemeData>(
+                     stream: provider.bloc.themeData,
                      builder: (context, snapshot) {
                        if (!snapshot.hasData) return Container();
                        return MaterialApp(
-                         theme: ThemeData(
-                           primaryColor: Colors.blue,
-                           brightness: snapshot.data,
-                         ),
+                         theme: snapshot.data,
                          home: RootScreen(),
                        );
                      }

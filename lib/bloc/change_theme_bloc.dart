@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamagotchi/model/theme.dart';
+import 'package:tamagotchi/theme/theme_constants.dart';
 
-class PreferenceBloc{
+class ChangeThemeBloc{
 
-  final _brightness = BehaviorSubject<Brightness>();
+  final _theme = BehaviorSubject<ThemeData>();
 
   //Getters
-  Stream<Brightness> get brightness => _brightness.stream;
+  Stream<ThemeData> get themeData => _theme.stream;
 
   //Setters
-  Function(Brightness) get changeBrightness => _brightness.sink.add;
+  Function(ThemeData) get changeTheme => _theme.sink.add;
 
   savePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (_brightness.value == Brightness.light){
+    if (_theme.value == MyThemes.lightTheme){
       await prefs.setBool('dark', false);
     }  else {
       await prefs.setBool('dark', true);
@@ -24,17 +25,16 @@ class PreferenceBloc{
 
   loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Object? darkMode=prefs.get('dark');
-    Object? colorIndex = prefs.get('colorIndex');
+    Object? darkMode = prefs.get('dark');
 
     if (darkMode != null){
-      (darkMode == false) ? changeBrightness(Brightness.light) : changeBrightness(Brightness.dark);
+      (darkMode == false) ? changeTheme(MyThemes.lightTheme) : changeTheme(MyThemes.darkTheme);
     } else {
-      changeBrightness(Brightness.light);
+      changeTheme(MyThemes.lightTheme);
     }
   }
 
   dispose(){
-    _brightness.close();
+    _theme.close();
   }
 }
