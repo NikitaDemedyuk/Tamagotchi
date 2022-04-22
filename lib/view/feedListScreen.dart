@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'homeScreen.dart';
 
 class FeedListScreen extends StatefulWidget {
   const FeedListScreen({Key? key}) : super(key: key);

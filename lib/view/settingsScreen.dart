@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamagotchi/bloc/theme_bloc.dart';
-import 'package:tamagotchi/main.dart';
 import 'package:tamagotchi/providers/preference_provider.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
 
@@ -29,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                       'Light/dark mode',
                     style: TextStyle(
                       fontSize: 18.0,

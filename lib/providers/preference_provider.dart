@@ -11,5 +11,4 @@ class PreferenceProvider with ChangeNotifier{
   }
 
   ChangeThemeBloc get bloc => _bloc;
-
 }

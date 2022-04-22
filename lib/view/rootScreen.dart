@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tamagotchi/view/feedListScreen.dart';
 import 'package:tamagotchi/view/settingsScreen.dart';
-
 import '../bloc/screen_bloc.dart';
 import '../model/screen.dart';
 import 'homeScreen.dart';
@@ -62,11 +61,11 @@ class _RootScreenState extends State<RootScreen> {
       body: BlocBuilder<NavigationCubit, NavigationState>(
           builder: (context, state) {
             if (state.navbarItem == NavbarItem.home) {
-              return HomeScreen();
+              return const HomeScreen();
             } else if (state.navbarItem == NavbarItem.feedList) {
-              return FeedListScreen();
+              return const FeedListScreen();
             } else if (state.navbarItem == NavbarItem.settings) {
-              return SettingsScreen();
+              return const SettingsScreen();
             }
            return Container();
           }),
