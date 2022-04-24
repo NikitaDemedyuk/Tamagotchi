@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamagotchi/model/theme.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
 
 class ChangeThemeBloc{
 
   final _theme = BehaviorSubject<ThemeData>();
 
-  //Getters
   Stream<ThemeData> get themeData => _theme.stream;
 
-  //Setters
   Function(ThemeData) get changeTheme => _theme.sink.add;
 
-  savePreferences() async {
+  savePreferencesTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_theme.value == MyThemes.lightTheme){
       await prefs.setBool('dark', false);

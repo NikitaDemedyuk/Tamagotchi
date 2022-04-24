@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:tamagotchi/providers/pet_provider.dart';
 import 'package:tamagotchi/providers/preference_provider.dart';
 import 'package:tamagotchi/view/rootScreen.dart';
 import 'bloc/screen_bloc.dart';
@@ -23,15 +24,18 @@ class _AppState extends State<App> {
     return BlocProvider<NavigationCubit>(
       create: (context) => NavigationCubit(),
       child: ChangeNotifierProvider(
-        create: (BuildContext context) => PreferenceProvider(),
-        child: Consumer<PreferenceProvider>(builder: (context, provider, child) {
+        create: (BuildContext context) => ThemeProvider(),
+        child: Consumer<ThemeProvider>(builder: (context, provider, child) {
           return StreamBuilder<ThemeData>(
               stream: provider.bloc.themeData,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return Container();
-                return MaterialApp(
-                  theme: snapshot.data,
-                  home: RootScreen(),
+                return ChangeNotifierProvider(
+                  create: (BuildContext context) => PetProvider(),
+                  child: MaterialApp(
+                    theme: snapshot.data,
+                    home: RootScreen(),
+                  ),
                 );
               });
         }),

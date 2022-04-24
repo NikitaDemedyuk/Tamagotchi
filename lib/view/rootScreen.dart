@@ -22,7 +22,7 @@ class _RootScreenState extends State<RootScreen> {
         builder: (context, state) {
           return BottomNavigationBar(
             currentIndex: state.index,
-            showUnselectedLabels: true,
+            showUnselectedLabels: false,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tamagotchi/bloc/change_theme_bloc.dart';
 
-class PreferenceProvider with ChangeNotifier{
+class ThemeProvider with ChangeNotifier{
 
   ChangeThemeBloc _bloc = ChangeThemeBloc();
 
-  PreferenceProvider() {
+  ThemeProvider() {
     _bloc = ChangeThemeBloc();
     _bloc.loadPreferences();
   }

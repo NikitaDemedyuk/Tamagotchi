@@ -14,9 +14,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    final bloc = Provider.of<PreferenceProvider>(context).bloc;
-
+    final bloc = Provider.of<ThemeProvider>(context).bloc;
     return Scaffold(
       body: Center(
         child: Column(
@@ -45,7 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           } else {
                             bloc.changeTheme(MyThemes.lightTheme);
                           }
-                          bloc.savePreferences();
+                          bloc.savePreferencesTheme();
                         },
                       );
                     }
