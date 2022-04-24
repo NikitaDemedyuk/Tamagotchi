@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   PetProvider ben = PetProvider();
-  PetBloc benBloc = PetBloc();
+  //PetBloc benBloc = PetBloc();
 
   Widget buttonActionOnImage(Color color, double endRadius, double opacity,
       int secondDuration, int action) {
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     ben = Provider.of<PetProvider>(context);
-    benBloc = Provider.of<PetProvider>(context).petBloc;
+   // benBloc = Provider.of<PetProvider>(context).petBloc;
     return Scaffold(
       body: Container(
         child: Column(

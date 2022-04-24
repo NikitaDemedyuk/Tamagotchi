@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:tamagotchi/providers/pet_provider.dart';
-import 'package:tamagotchi/providers/preference_provider.dart';
+import 'package:tamagotchi/providers/theme_provider.dart';
 import 'package:tamagotchi/view/rootScreen.dart';
 import 'bloc/screen_bloc.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamagotchi/providers/preference_provider.dart';
+import 'package:tamagotchi/providers/theme_provider.dart';
 import 'package:tamagotchi/theme/theme_constants.dart';
 
 class SettingsScreen extends StatefulWidget {

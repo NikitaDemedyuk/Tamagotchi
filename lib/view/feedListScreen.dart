@@ -11,14 +11,13 @@ class FeedListScreen extends StatefulWidget {
   State<FeedListScreen> createState() => _FeedListScreenState();
 }
 
-PetBloc petBloc = PetBloc();
 
 class _FeedListScreenState extends State<FeedListScreen> {
 
   @override
   Widget build(BuildContext context) {
 
-    petBloc = Provider.of<PetProvider>(context).petBloc;
+    PetBloc petBloc = Provider.of<PetProvider>(context).petBloc;
 
     DateTime dateToday = DateTime( DateTime.now().year,
                                    DateTime.now().month,
@@ -30,18 +29,21 @@ class _FeedListScreenState extends State<FeedListScreen> {
 
     return Scaffold(
       body: Center(
-        child: ListView(
-         children: [
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
            ElevatedButton(
+               style: ButtonStyle(
+               ),
                onPressed: () async {
-                 petBloc.savePreferencesFeed();
+                 petBloc.savePreferences();
                },
                child: null
            ),
-           StreamBuilder<DateTime>(
-              stream: petBloc.timeToFeed,
+           StreamBuilder<int>(
+               stream: petBloc.indexFeed,
                builder: (context, snapshot) {
-                  return Text(
+                 return Text(
                      '${snapshot.data}'
                  );
                }
