@@ -11,32 +11,41 @@ class PetBloc {
   final _name = BehaviorSubject<String>();
   final _indexFeed = BehaviorSubject<int>();
   final _indexHappy = BehaviorSubject<int>();
-  final _timeToFeed = BehaviorSubject<int>();
+  final _timeToFeed = BehaviorSubject<DateTime>();
 
   Stream<String> get name => _name.stream;
   Stream<int> get indexFeed => _indexFeed.stream;
   Stream<int> get indexHappy => _indexHappy.stream;
-  Stream<int> get timeToFeed => _timeToFeed.stream;
+  Stream<DateTime> get timeToFeed => _timeToFeed.stream;
 
   Function(String) get changeNamePet => _name.sink.add;
   Function(int) get changeIndexFeedPet => _indexFeed.sink.add;
   Function(int) get changeIndexHappyPet => _indexHappy.sink.add;
-  Function(int) get changeTimeToFeedPet => _timeToFeed.sink.add;
+  Function(DateTime) get changeTimeToFeedPet => _timeToFeed.sink.add;
+
+  setTimeToFeed (DateTime timeToFeed) {
+    return _timeToFeed.value = timeToFeed;
+  }
 
   savePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('indexFeed', _indexFeed.value);
+    await prefs.setString('feedTime', _timeToFeed.value.toIso8601String());
+
+    if (kDebugMode) {
+      print('Save = ${_timeToFeed.value.toIso8601String()}');
+    }
+
   }
 
   loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Object? indexFeed = prefs.get('indexFeed');
-    if (kDebugMode) {
-      print(indexFeed);
-      print(_indexFeed.value);
-    }
-  }
+    dynamic timeToFeed = prefs.get('feedTime');
 
+    if (kDebugMode) {
+      print('Load = $timeToFeed');
+    }
+    changeTimeToFeedPet(timeToFeed.parse());
+  }
 
   dispose() {
    _name.close();

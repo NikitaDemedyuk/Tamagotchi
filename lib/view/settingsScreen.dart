@@ -14,7 +14,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<ThemeProvider>(context).bloc;
+    final themeBloc = Provider.of<ThemeProvider>(context).bloc;
     return Scaffold(
       body: Center(
         child: Column(
@@ -32,18 +32,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   StreamBuilder<ThemeData>(
-                    stream: bloc.themeData,
+                    stream: themeBloc.themeData,
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) return Container();
                       return Switch(
                         value: (snapshot.data == MyThemes.lightTheme) ? false : true,
                         onChanged: (bool value) {
                           if (value) {
-                            bloc.changeTheme(MyThemes.darkTheme);
+                            themeBloc.changeTheme(MyThemes.darkTheme);
                           } else {
-                            bloc.changeTheme(MyThemes.lightTheme);
+                            themeBloc.changeTheme(MyThemes.lightTheme);
                           }
-                          bloc.savePreferencesTheme();
+                          themeBloc.savePreferencesTheme();
                         },
                       );
                     }

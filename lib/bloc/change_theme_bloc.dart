@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,7 @@ class ChangeThemeBloc{
 
   loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Object? darkMode = prefs.get('dark');
+    dynamic darkMode = prefs.get('dark');
 
     if (darkMode != null){
       (darkMode == false) ? changeTheme(MyThemes.lightTheme) : changeTheme(MyThemes.darkTheme);

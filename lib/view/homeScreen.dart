@@ -12,36 +12,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  PetProvider ben = PetProvider();
-  //PetBloc benBloc = PetBloc();
+//PetProvider ben = PetProvider();
+//PetBloc benBloc = PetBloc();
 
-  Widget buttonActionOnImage(Color color, double endRadius, double opacity,
-      int secondDuration, int action) {
-    return AvatarGlow(
-      glowColor: color,
-      duration: Duration(seconds: secondDuration),
-      child: ElevatedButton(
-        onPressed: () {
-          if (action == 1) {
-            ben.incrementHappy();
-            //counterBloc.eventSink.add(CounterAction.incrementHappy);
-          } else if (action == 2) {
-            //counterBloc.eventSink.add(CounterAction.incrementFeedTwo);
-          } else if (action == 3) {
-            ben.decrementHappy();
-            //counterBloc.eventSink.add(CounterAction.decrementHappy);
-          }
-        },
-        child: null,
-        style: ElevatedButton.styleFrom(
-          primary: Colors.amber.withOpacity(opacity),
-          shape: const CircleBorder(),
-        ),
-      ),
-      endRadius: endRadius,
-    );
-  }
+class _HomeScreenState extends State<HomeScreen> {
 
   Widget imageSection() {
     return Image.asset(
@@ -50,39 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buttonAction(IconData iconInButton, double width, double height,
-      double sizeIcon, int indexButton) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(width, height),
-        shape: const CircleBorder(),
-      ),
-      child: Align(
-        alignment: Alignment.center,
-        child: Icon(
-          iconInButton,
-          size: sizeIcon,
-        ),
-      ),
-      onPressed: () async {
-        if (indexButton == 1) {
-          ben.decrementFeed();
-          //counterBloc.eventSink.add(CounterAction.decrementFeed);
-        } else if (indexButton == 2) {
-          ben.incrementFeed();
-          //counterBloc.eventSink.add(CounterAction.incrementFeed);
-        } else if (indexButton == 3) {
-          ben.resetData();
-          //counterBloc.eventSink.add(CounterAction.reset);
-        }
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    ben = Provider.of<PetProvider>(context);
-   // benBloc = Provider.of<PetProvider>(context).petBloc;
+    final ben = Provider.of<PetProvider>(context);
+    final benBloc = Provider.of<PetProvider>(context).petBloc;
     return Scaffold(
       body: Container(
         child: Column(
@@ -142,6 +87,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           : const Icon(Icons.fastfood_outlined),
                     ],
                   ),
+                  StreamBuilder<DateTime>(
+                      stream: benBloc.timeToFeed,
+                      builder: (context, snapshot) {
+                        return Text('${snapshot.data}');
+                      }
+                  )
                 ],
               ),
             ),
@@ -153,13 +104,64 @@ class _HomeScreenState extends State<HomeScreen> {
                     flex: 1,
                     child: Container(
                       padding: const EdgeInsets.all(10),
-                      //color: Colors.amber,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          buttonAction(Icons.videogame_asset, 70, 70, 35.0, 1),
-                          buttonAction(Icons.set_meal_rounded, 90, 90, 40.0, 2),
-                          buttonAction(Icons.highlight_remove, 50, 50, 30.0, 3),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: const Size(70, 70),
+                              shape: const CircleBorder(),
+                            ),
+                            child: const Align(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.videogame_asset,
+                                size: 35.0,
+                              ),
+                            ),
+                            onPressed: () async {
+                              ben.decrementFeed();
+                            },
+                          ),
+                          StreamBuilder<DateTime>(
+                            stream: benBloc.timeToFeed,
+                            builder: (context, snapshot) {
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(90, 90),
+                                  shape: const CircleBorder(),
+                                ),
+                                child: const Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.set_meal_rounded,
+                                    size: 40.0,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  ben.incrementFeed();
+                                  benBloc.savePreferences();
+                                  benBloc.changeTimeToFeedPet(benBloc.setTimeToFeed(DateTime.now()));
+                                },
+                              );
+                            }
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: const Size(50, 50),
+                              shape: const CircleBorder(),
+                            ),
+                            child: const Align(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.highlight_remove,
+                                size: 30.0,
+                              ),
+                            ),
+                            onPressed: () async {
+                              ben.resetData();
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -167,45 +169,135 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     flex: 3,
                     child: Container(
-                      //color: Colors.purple,
                       child: Stack(
                         fit: StackFit.expand,
                         children: <Widget>[
                           imageSection(),
                           Align(
                             alignment: Alignment.bottomRight,
-                            child:
-                                buttonActionOnImage(Colors.red, 90, 0.01, 5, 1),
+                            child: AvatarGlow(
+                              glowColor: Colors.red,
+                              duration: Duration(seconds: 5),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                    ben.decrementHappy();
+                                },
+                                child: null,
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red.withOpacity(0.01),
+                                  shape: const CircleBorder(),
+                                ),
+                              ),
+                              endRadius: 90,
+                            ),
                           ),
                           Align(
                             alignment: Alignment.bottomLeft,
-                            child: buttonActionOnImage(
-                                Colors.red, 120, 0.01, 5, 3),
+                            child: AvatarGlow(
+                              glowColor: Colors.red,
+                              duration: Duration(seconds: 5),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  ben.decrementHappy();
+                                },
+                                child: null,
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red.withOpacity(0.01),
+                                  shape: const CircleBorder(),
+                                ),
+                              ),
+                              endRadius: 120,
+                            ),
                           ),
                           Align(
                             alignment: Alignment.centerRight,
-                            child: buttonActionOnImage(
-                                Colors.green, 60, 0.01, 2, 1),
+                            child: AvatarGlow(
+                              glowColor: Colors.green,
+                              duration: Duration(seconds: 2),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  ben.decrementHappy();
+                                },
+                                child: null,
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green.withOpacity(0.01),
+                                  shape: const CircleBorder(),
+                                ),
+                              ),
+                              endRadius: 60,
+                            ),
                           ),
                           Align(
                             alignment: Alignment.center,
-                            child: buttonActionOnImage(
-                                Colors.amber, 100, 0.01, 3, 2),
+                            child: AvatarGlow(
+                              glowColor: Colors.amber,
+                              duration: Duration(seconds: 3),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  ben.incrementFeed();
+                                },
+                                child: null,
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.amber.withOpacity(0.01),
+                                  shape: const CircleBorder(),
+                                ),
+                              ),
+                              endRadius: 100,
+                            ),
                           ),
                           Align(
                             alignment: Alignment.topRight,
-                            child: buttonActionOnImage(
-                                Colors.green, 70, 0.01, 2, 1),
+                            child: AvatarGlow(
+                              glowColor: Colors.green,
+                              duration: Duration(seconds: 2),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  ben.incrementHappy();
+                                },
+                                child: null,
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green.withOpacity(0.01),
+                                  shape: const CircleBorder(),
+                                ),
+                              ),
+                              endRadius: 70,
+                            ),
                           ),
                           Align(
                             alignment: Alignment.topLeft,
-                            child: buttonActionOnImage(
-                                Colors.green, 70, 0.01, 2, 1),
+                              child: AvatarGlow(
+                                glowColor: Colors.green,
+                                duration: Duration(seconds: 2),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    ben.incrementHappy();
+                                  },
+                                  child: null,
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.green.withOpacity(0.01),
+                                    shape: const CircleBorder(),
+                                  ),
+                                ),
+                                endRadius: 70,
+                              ),
                           ),
                           Align(
                             alignment: Alignment.topCenter,
-                            child: buttonActionOnImage(
-                                Colors.red, 110, 0.01, 5, 3),
+                            child: AvatarGlow(
+                              glowColor: Colors.red,
+                              duration: Duration(seconds: 5),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  ben.decrementHappy();
+                                },
+                                child: null,
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red.withOpacity(0.01),
+                                  shape: const CircleBorder(),
+                                ),
+                              ),
+                              endRadius: 110,
+                            ),
                           ),
                         ],
                       ),

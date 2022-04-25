@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamagotchi/bloc/pet_bloc.dart';
 import 'package:tamagotchi/model/pet.dart';
 
@@ -10,11 +11,17 @@ class PetProvider with ChangeNotifier {
   String get name => pet.name;
   int get indexFeed => pet.indexFeed;
   int get indexHappy => pet.indexHappy;
+  DateTime get timeToFeed => pet.timeToFeed;
   PetBloc get petBloc => _petBloc;
 
   PetProvider() {
     _petBloc = PetBloc();
     _petBloc.loadPreferences();
+  }
+
+  void setTimeToFeed (DateTime timeToFeed) {
+    pet.timeToFeed = timeToFeed;
+    notifyListeners();
   }
 
   void incrementFeed () {
