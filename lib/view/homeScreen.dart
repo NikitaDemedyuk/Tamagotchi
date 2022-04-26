@@ -12,8 +12,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-//PetProvider ben = PetProvider();
-//PetBloc benBloc = PetBloc();
+PetProvider ben = PetProvider();
+PetBloc benBloc = PetBloc();
 
 class _HomeScreenState extends State<HomeScreen> {
 
@@ -26,8 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ben = Provider.of<PetProvider>(context);
-    final benBloc = Provider.of<PetProvider>(context).petBloc;
+    ben = Provider.of<PetProvider>(context);
+    benBloc = Provider.of<PetProvider>(context).petBloc;
     return Scaffold(
       body: Container(
         child: Column(
@@ -87,9 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           : const Icon(Icons.fastfood_outlined),
                     ],
                   ),
-                  StreamBuilder<DateTime>(
-                      stream: benBloc.timeToFeed,
+                  StreamBuilder<int>(
+                      stream: benBloc.indexFeed,
                       builder: (context, snapshot) {
+                        if (!snapshot.hasData) return Container();
                         return Text('${snapshot.data}');
                       }
                   )
@@ -107,24 +108,33 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(70, 70),
-                              shape: const CircleBorder(),
-                            ),
-                            child: const Align(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.videogame_asset,
-                                size: 35.0,
-                              ),
-                            ),
-                            onPressed: () async {
-                              ben.decrementFeed();
-                            },
+                          StreamBuilder<int>(
+                            stream: benBloc.indexFeed,
+                            builder: (context, snapshot) {
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(70, 70),
+                                  shape: const CircleBorder(),
+                                ),
+                                child: const Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.videogame_asset,
+                                    size: 35.0,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  ben.decrementFeed();
+                                  //benBloc.changeIndexFeedPet(benBloc.setIndexToFeed(ben.pet.indexFeed));
+                                  //benBloc.savePreferencesFeedTime();
+                                  benBloc.changeIndexFeedPet(benBloc.setIndexToFeed(ben.pet.indexFeed));
+                                  benBloc.savePreferencesIndexFeed();
+                                },
+                              );
+                            }
                           ),
-                          StreamBuilder<DateTime>(
-                            stream: benBloc.timeToFeed,
+                          StreamBuilder<int>(
+                            stream: benBloc.indexFeed,
                             builder: (context, snapshot) {
                               return ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -140,8 +150,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 onPressed: () async {
                                   ben.incrementFeed();
-                                  benBloc.savePreferences();
-                                  benBloc.changeTimeToFeedPet(benBloc.setTimeToFeed(DateTime.now()));
+                                  //benBloc.changeTimeToFeedPet(benBloc.setTimeToFeed(DateTime.now()));
+                                  benBloc.changeIndexFeedPet(benBloc.setIndexToFeed(ben.pet.indexFeed));
+                                  benBloc.savePreferencesIndexFeed();
                                 },
                               );
                             }
@@ -216,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               duration: Duration(seconds: 2),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  ben.decrementHappy();
+                                  ben.incrementHappy();
                                 },
                                 child: null,
                                 style: ElevatedButton.styleFrom(

@@ -5,7 +5,7 @@ import 'package:tamagotchi/model/pet.dart';
 
 class PetProvider with ChangeNotifier {
 
-  Pet pet = Pet('Ben', [false, false, false, false, false], [false, false, false, false, false]);
+  Pet pet = Pet('Ben', 0, [false, false, false, false, false], 0, [false, false, false, false, false]);
   PetBloc _petBloc = PetBloc();
 
   String get name => pet.name;
@@ -14,14 +14,11 @@ class PetProvider with ChangeNotifier {
   DateTime get timeToFeed => pet.timeToFeed;
   PetBloc get petBloc => _petBloc;
 
+
   PetProvider() {
     _petBloc = PetBloc();
-    _petBloc.loadPreferences();
-  }
-
-  void setTimeToFeed (DateTime timeToFeed) {
-    pet.timeToFeed = timeToFeed;
-    notifyListeners();
+    _petBloc.loadPreferencesFeedTime();
+    _petBloc.loadPreferencesIndexFeed();
   }
 
   void incrementFeed () {

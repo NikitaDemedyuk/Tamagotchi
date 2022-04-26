@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 
 class Pet extends Equatable {
 
-  Pet (this.name, this.isFeed, this.isHappy);
+  Pet (this.name, this.indexFeed, this.isFeed, this.indexHappy, this.isHappy);
 
   final String name;
-  int indexFeed = 0;
+  int indexFeed;
   List <bool> isFeed;
-  int indexHappy = 0;
+  int indexHappy;
   List <bool> isHappy;
   DateTime timeToFeed = DateTime.now();
 

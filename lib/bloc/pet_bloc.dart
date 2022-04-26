@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamagotchi/model/pet.dart';
 
 class PetBloc {
 
@@ -23,29 +21,67 @@ class PetBloc {
   Function(int) get changeIndexHappyPet => _indexHappy.sink.add;
   Function(DateTime) get changeTimeToFeedPet => _timeToFeed.sink.add;
 
-  setTimeToFeed (DateTime timeToFeed) {
+  setTimeToFeed(DateTime timeToFeed) {
     return _timeToFeed.value = timeToFeed;
   }
 
-  savePreferences() async {
+  setIndexToFeed(int indexFeed) {
+    return _indexFeed.value = indexFeed;
+  }
+
+  setIndexToHappy(int indexHappy) {
+    return _indexHappy.value = indexHappy;
+  }
+
+  savePreferencesFeedTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('feedTime', _timeToFeed.value.toIso8601String());
-
     if (kDebugMode) {
-      print('Save = ${_timeToFeed.value.toIso8601String()}');
+      print('Save time to feed  = ${_timeToFeed.value.toIso8601String()}');
     }
-
   }
 
-  loadPreferences() async {
+  loadPreferencesFeedTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    dynamic timeToFeed = prefs.get('feedTime');
+    String? timeToFeed = prefs.getString('feedTime');
+
+    DateTime dateTime = DateTime.parse(timeToFeed ?? '0');
+
+    if (timeToFeed != null) {
+      changeTimeToFeedPet(dateTime);
+    } else {
+      changeTimeToFeedPet(DateTime.now());
+    }
+
 
     if (kDebugMode) {
-      print('Load = $timeToFeed');
+      print('Load time to feed = $timeToFeed');
     }
-    changeTimeToFeedPet(timeToFeed.parse());
   }
+
+  savePreferencesIndexFeed() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('indexFeed', _indexFeed.value);
+    if (kDebugMode) {
+      print('Save indexFeed  = ${_indexFeed.value}');
+    }
+  }
+
+  loadPreferencesIndexFeed() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? indexFeed = prefs.getInt('indexFeed');
+
+    if (indexFeed != null) {
+      changeIndexFeedPet(indexFeed);
+    } else {
+
+    }
+
+    if (kDebugMode) {
+      print('Load indexFeed = $indexFeed');
+    }
+  }
+
 
   dispose() {
    _name.close();

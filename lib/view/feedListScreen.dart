@@ -21,7 +21,12 @@ class _FeedListScreenState extends State<FeedListScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-
+            StreamBuilder<DateTime>(
+                stream: benBloc.timeToFeed,
+                builder: (context, snapshot) {
+                  return Text('${snapshot.data}');
+                }
+            )
           ],
         ),
       ),

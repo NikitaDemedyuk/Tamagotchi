@@ -11,7 +11,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   @override
   Widget build(BuildContext context) {
     final themeBloc = Provider.of<ThemeProvider>(context).bloc;
@@ -26,28 +25,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                      'Light/dark mode',
+                    'Light/dark mode',
                     style: TextStyle(
                       fontSize: 18.0,
                     ),
                   ),
                   StreamBuilder<ThemeData>(
-                    stream: themeBloc.themeData,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Container();
-                      return Switch(
-                        value: (snapshot.data == MyThemes.lightTheme) ? false : true,
-                        onChanged: (bool value) {
-                          if (value) {
-                            themeBloc.changeTheme(MyThemes.darkTheme);
-                          } else {
-                            themeBloc.changeTheme(MyThemes.lightTheme);
-                          }
-                          themeBloc.savePreferencesTheme();
-                        },
-                      );
-                    }
-                  ),
+                      stream: themeBloc.themeData,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) return Container();
+                        return Switch(
+                          value: (snapshot.data == MyThemes.lightTheme)
+                              ? false
+                              : true,
+                          onChanged: (bool value) {
+                            if (value) {
+                              themeBloc.changeTheme(MyThemes.darkTheme);
+                            } else {
+                              themeBloc.changeTheme(MyThemes.lightTheme);
+                            }
+                            themeBloc.savePreferencesTheme();
+                          },
+                        );
+                      }),
                 ],
               ),
             ),
