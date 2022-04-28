@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamagotchi/providers/pet_provider.dart';
@@ -13,21 +14,27 @@ class FeedListScreen extends StatefulWidget {
 }
 
 class _FeedListScreenState extends State<FeedListScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            StreamBuilder<DateTime>(
-                stream: benBloc.timeToFeed,
-                builder: (context, snapshot) {
-                  return Text('${snapshot.data}');
-                }
-            )
-          ],
+        child: StreamBuilder<List<DateTime>>(
+            stream: benBloc.feedList,
+            builder: (context, snapshot) {
+              ben.pet.feedList = snapshot.data ?? [];
+              return 
+                //Container(
+                //padding: EdgeInsets.all(20.0),
+                //child: Text(
+                  //'${snapshot.data}',
+                  //textAlign: TextAlign.center,
+                //),
+              //);
+            }
         ),
       ),
     );
