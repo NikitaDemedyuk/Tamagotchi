@@ -146,9 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               benBloc.savePreferencesIndexFeed();
                               benBloc.changeArrayFeed(ben.pet.isFeed);
                               benBloc.savePreferencesIsFeed();
-                              ben.addElementToFeed(DateTime.now());
-                              benBloc.changeFeedTimeList(ben.feedList);
-                              benBloc.savePreferencesFeedTimeList();
                             },
                           ),
                           ElevatedButton(
@@ -187,7 +184,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             onPressed: () async {
-                              ben.resetData();
+                              ben.pet.indexFeed = 0;
+                              benBloc.changeIndexFeedPet(ben.pet.indexFeed);
+                              benBloc.savePreferencesIndexFeed();
+                              ben.pet.isFeed = [false, false, false, false, false];
+                              benBloc.changeArrayFeed(ben.pet.isFeed);
+                              benBloc.savePreferencesIsFeed();
+                              ben.pet.indexHappy = 0;
+                              benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                              benBloc.savePreferencesIndexHappy();
+                              ben.pet.isHappy = [false, false, false, false, false];
+                              benBloc.changeArrayHappy(ben.pet.isHappy);
+                              benBloc.savePreferencesIsHappy();
+                              ben.pet.feedList.removeRange(0, ben.pet.feedList.length);
+                              benBloc.changeFeedTimeList(ben.pet.feedList);
+                              benBloc.savePreferencesFeedTimeList();
                             },
                           ),
                         ],

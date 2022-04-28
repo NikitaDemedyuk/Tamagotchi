@@ -11,7 +11,6 @@ class PetBloc {
   final _isFeed = BehaviorSubject<List<bool>>();
   final _indexHappy = BehaviorSubject<int>();
   final _isHappy = BehaviorSubject<List<bool>>();
-  final _timeToFeed = BehaviorSubject<DateTime>();
   final _feedList = BehaviorSubject<List<DateTime>>();
 
   Stream<String> get name => _name.stream;
@@ -19,7 +18,6 @@ class PetBloc {
   Stream<List<bool>> get isFeed => _isFeed.stream;
   Stream<int> get indexHappy => _indexHappy.stream;
   Stream<List<bool>> get isHappy => _isHappy.stream;
-  Stream<DateTime> get timeToFeed => _timeToFeed.stream;
   Stream <List<DateTime>> get feedList => _feedList.stream;
 
   Function(String) get changeNamePet => _name.sink.add;
@@ -27,7 +25,6 @@ class PetBloc {
   Function(List<bool>) get changeArrayFeed => _isFeed.sink.add;
   Function(int) get changeIndexHappyPet => _indexHappy.sink.add;
   Function(List<bool>) get changeArrayHappy => _isHappy.sink.add;
-  Function(DateTime) get changeTimeToFeedPet => _timeToFeed.sink.add;
   Function(List<DateTime>) get changeFeedTimeList => _feedList.sink.add;
 
   savePreferencesIndexFeed() async {
@@ -117,24 +114,6 @@ class PetBloc {
     changeArrayHappy(isHappyBool);
   }
 
-  savePreferencesFeedTime() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('feedTime', _timeToFeed.value.toIso8601String());
-  }
-
-  loadPreferencesFeedTime() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? timeToFeed = prefs.getString('feedTime');
-
-    DateTime dateTime = DateTime.parse(timeToFeed ?? '0');
-
-    if (timeToFeed != null) {
-      changeTimeToFeedPet(dateTime);
-    } else {
-      changeTimeToFeedPet(DateTime.now());
-    }
-  }
-
   savePreferencesFeedTimeList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> feedListString = [];
@@ -162,7 +141,6 @@ class PetBloc {
    _isFeed.close();
    _indexHappy.close();
    _isHappy.close();
-   _timeToFeed.close();
    _feedList.close();
   }
 }

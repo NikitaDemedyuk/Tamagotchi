@@ -9,10 +9,9 @@ class Pet extends Equatable {
   List <bool> isFeed;
   int indexHappy;
   List <bool> isHappy;
-  DateTime timeToFeed = DateTime.now();
   List <DateTime> feedList;
 
   @override
-  List<Object> get props => [name, indexFeed, isFeed, indexHappy, isHappy, timeToFeed, feedList];
+  List<Object> get props => [name, indexFeed, isFeed, indexHappy, isHappy, feedList];
 
 }

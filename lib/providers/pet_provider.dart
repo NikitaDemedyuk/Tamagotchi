@@ -12,7 +12,6 @@ class PetProvider with ChangeNotifier {
   int get indexFeed => pet.indexFeed;
   List <bool> get isFeed => pet.isFeed;
   int get indexHappy => pet.indexHappy;
-  DateTime get timeToFeed => pet.timeToFeed;
   List<DateTime> get feedList => pet.feedList;
   PetBloc get petBloc => _petBloc;
 
@@ -23,7 +22,6 @@ class PetProvider with ChangeNotifier {
     _petBloc.loadPreferencesIsFeed();
     _petBloc.loadPreferencesIndexHappy();
     _petBloc.loadPreferencesIsHappy();
-    _petBloc.loadPreferencesFeedTime();
     _petBloc.loadPreferencesFeedTimeList();
   }
 
@@ -67,6 +65,9 @@ class PetProvider with ChangeNotifier {
     while (pet.indexHappy > 0) {
       pet.indexHappy--;
       pet.isHappy[pet.indexHappy] = false;
+    }
+    while (pet.feedList.isNotEmpty) {
+      pet.feedList.removeLast();
     }
     notifyListeners();
   }
