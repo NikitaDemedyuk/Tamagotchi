@@ -5,7 +5,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PetBloc {
-
   final _name = BehaviorSubject<String>();
   final _indexFeed = BehaviorSubject<int>();
   final _isFeed = BehaviorSubject<List<bool>>();
@@ -27,6 +26,7 @@ class PetBloc {
   Function(List<bool>) get changeArrayHappy => _isHappy.sink.add;
   Function(List<DateTime>) get changeFeedTimeList => _feedList.sink.add;
 
+
   savePreferencesIndexFeed() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('indexFeed', _indexFeed.value);
@@ -36,9 +36,23 @@ class PetBloc {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? indexFeed = prefs.getInt('indexFeed');
 
-    if (_indexFeed != null) {
-      changeIndexFeedPet(indexFeed ?? 0);
+    List<String>? feedList = prefs.getStringList('feedTimeList');
+
+    List<DateTime> feedListDateTime = [];
+    for (int i = 0; i < feedList!.length; ++i) {
+      DateTime dateTime = DateTime.parse(feedList[i]);
+      feedListDateTime.add(dateTime);
+    }
+    int lastFeedTime = DateTime.now().difference(feedListDateTime.last).inMinutes;
+
+    if (indexFeed != null) {
+      if (indexFeed > lastFeedTime) {
+        changeIndexFeedPet(indexFeed - lastFeedTime);
+      } else {
+        changeIndexFeedPet(0);
+      }
     } else {
+
     }
   }
 

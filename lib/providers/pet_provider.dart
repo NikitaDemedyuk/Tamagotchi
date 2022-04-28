@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamagotchi/bloc/pet_bloc.dart';
 import 'package:tamagotchi/model/pet.dart';
 
