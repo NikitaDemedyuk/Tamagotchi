@@ -31,11 +31,11 @@ class PetProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
+  
   void decrementFeed () {
     if (pet.indexFeed > 0) {
-      pet.indexFeed--;
       pet.isFeed[pet.indexFeed] = false;
+      pet.indexFeed--;
     }
     notifyListeners();
   }
@@ -65,13 +65,14 @@ class PetProvider with ChangeNotifier {
       pet.indexHappy--;
       pet.isHappy[pet.indexHappy] = false;
     }
-    while (pet.feedList.isNotEmpty) {
-      pet.feedList.removeLast();
+    while (pet.feedList.length > 1) {
+      pet.feedList.removeAt(0);
     }
     notifyListeners();
   }
 
   void addElementToFeed(DateTime feedTime) {
     pet.feedList.add(feedTime);
+    notifyListeners();
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +16,7 @@ class PetBloc {
   Stream<List<bool>> get isFeed => _isFeed.stream;
   Stream<int> get indexHappy => _indexHappy.stream;
   Stream<List<bool>> get isHappy => _isHappy.stream;
-  Stream <List<DateTime>> get feedList => _feedList.stream;
+  Stream<List<DateTime>> get feedList => _feedList.stream;
 
   Function(String) get changeNamePet => _name.sink.add;
   Function(int) get changeIndexFeedPet => _indexFeed.sink.add;
@@ -25,7 +24,6 @@ class PetBloc {
   Function(int) get changeIndexHappyPet => _indexHappy.sink.add;
   Function(List<bool>) get changeArrayHappy => _isHappy.sink.add;
   Function(List<DateTime>) get changeFeedTimeList => _feedList.sink.add;
-
 
   savePreferencesIndexFeed() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -35,24 +33,15 @@ class PetBloc {
   loadPreferencesIndexFeed() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? indexFeed = prefs.getInt('indexFeed');
-
-    List<String>? feedList = prefs.getStringList('feedTimeList');
-
-    List<DateTime> feedListDateTime = [];
-    for (int i = 0; i < feedList!.length; ++i) {
-      DateTime dateTime = DateTime.parse(feedList[i]);
-      feedListDateTime.add(dateTime);
-    }
-    int lastFeedTime = DateTime.now().difference(feedListDateTime.last).inMinutes;
+    String timeFromLastFeedString = prefs.getString('lastFeedTime') ?? DateTime.now().toIso8601String();
+    int? timeFromLastFeed = DateTime.now().difference(DateTime.parse(timeFromLastFeedString)).inMinutes;
 
     if (indexFeed != null) {
-      if (indexFeed > lastFeedTime) {
-        changeIndexFeedPet(indexFeed - lastFeedTime);
+      if (indexFeed > timeFromLastFeed) {
+        changeIndexFeedPet(indexFeed - timeFromLastFeed);
       } else {
         changeIndexFeedPet(0);
       }
-    } else {
-
     }
   }
 
@@ -81,6 +70,36 @@ class PetBloc {
         isFeedBool.add(false);
       }
     }
+
+    int indexFeed = prefs.getInt('indexFeed') ?? 0;
+    String timeFromLastFeedString = prefs.getString('lastFeedTime') ?? DateTime.now().toIso8601String();
+    int? timeFromLastFeed = DateTime.now().difference(DateTime.parse(timeFromLastFeedString)).inMinutes;
+
+    if (timeFromLastFeed < 5) {
+      for (int i = 0; i < timeFromLastFeed; ++i) {
+        if (indexFeed > 0) {
+          isFeedBool[indexFeed - 1] = false;
+          indexFeed -= 1;
+          changeIndexFeedPet(indexFeed);
+        }
+        if (indexFeed == 0) {
+          isFeedBool[indexFeed] = false;
+          changeIndexFeedPet(indexFeed);
+        }
+      }
+    } else {
+      for (int i = 0; i < 5; ++i) {
+        if (indexFeed > 0) {
+          isFeedBool[indexFeed - 1] = false;
+          indexFeed -= 1;
+          changeIndexFeedPet(indexFeed);
+        }
+        if (indexFeed == 0) {
+          isFeedBool[indexFeed] = false;
+          changeIndexFeedPet(indexFeed);
+        }
+      }
+    }
     changeArrayFeed(isFeedBool);
   }
 
@@ -95,9 +114,7 @@ class PetBloc {
 
     if (indexHappy != null) {
       changeIndexHappyPet(indexHappy);
-    } else {
-
-    }
+    } else {}
   }
 
   savePreferencesIsHappy() async {
@@ -132,9 +149,10 @@ class PetBloc {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> feedListString = [];
     for (int i = 0; i < _feedList.value.length; ++i) {
-     feedListString.add(_feedList.value[i].toIso8601String());
+      feedListString.add(_feedList.value[i].toIso8601String());
     }
     await prefs.setStringList('feedTimeList', feedListString);
+    await prefs.setString('lastFeedTime', feedListString.last);
   }
 
   loadPreferencesFeedTimeList() async {
@@ -150,12 +168,11 @@ class PetBloc {
   }
 
   dispose() {
-   _name.close();
-   _indexFeed.close();
-   _isFeed.close();
-   _indexHappy.close();
-   _isHappy.close();
-   _feedList.close();
+    _name.close();
+    _indexFeed.close();
+    _isFeed.close();
+    _indexHappy.close();
+    _isHappy.close();
+    _feedList.close();
   }
 }
-
