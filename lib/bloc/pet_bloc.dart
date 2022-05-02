@@ -33,8 +33,11 @@ class PetBloc {
   loadPreferencesIndexFeed() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? indexFeed = prefs.getInt('indexFeed');
-    String timeFromLastFeedString = prefs.getString('lastFeedTime') ?? DateTime.now().toIso8601String();
-    int? timeFromLastFeed = DateTime.now().difference(DateTime.parse(timeFromLastFeedString)).inMinutes;
+    String timeFromLastFeedString =
+        prefs.getString('lastFeedTime') ?? DateTime.now().toIso8601String();
+    int? timeFromLastFeed = DateTime.now()
+        .difference(DateTime.parse(timeFromLastFeedString))
+        .inMinutes;
 
     if (indexFeed != null) {
       if (indexFeed > timeFromLastFeed) {
@@ -72,8 +75,11 @@ class PetBloc {
     }
 
     int indexFeed = prefs.getInt('indexFeed') ?? 0;
-    String timeFromLastFeedString = prefs.getString('lastFeedTime') ?? DateTime.now().toIso8601String();
-    int? timeFromLastFeed = DateTime.now().difference(DateTime.parse(timeFromLastFeedString)).inMinutes;
+    String timeFromLastFeedString =
+        prefs.getString('lastFeedTime') ?? DateTime.now().toIso8601String();
+    int? timeFromLastFeed = DateTime.now()
+        .difference(DateTime.parse(timeFromLastFeedString))
+        .inMinutes;
 
     if (timeFromLastFeed < 5) {
       for (int i = 0; i < timeFromLastFeed; ++i) {
