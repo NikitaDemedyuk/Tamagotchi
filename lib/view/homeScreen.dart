@@ -18,7 +18,7 @@ PetBloc benBloc = PetBloc();
 class _HomeScreenState extends State<HomeScreen> {
   Widget imageSection() {
     return Image.asset(
-      'images/ben_splash.webp',
+      'images/ben_image.webp',
       fit: BoxFit.fitHeight,
     );
   }
@@ -122,7 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
-                  imageSection(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: imageSection(),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(top: 10.0, right: 10.0),
                     child: Align(
@@ -150,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0, right: 20.0),
+                    padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: ElevatedButton(
@@ -237,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0, left: 95.0),
+                    padding: const EdgeInsets.only(bottom: 5.0, left: 100.0),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: AvatarGlow(
@@ -315,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 135.0, right: 6.0),
+                    padding: const EdgeInsets.only(top: 135.0),
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: AvatarGlow(
@@ -341,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 45.0, right: 60.0),
+                    padding: const EdgeInsets.only(top: 45.0, right: 50.0),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: AvatarGlow(
@@ -393,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 75.0, right: 5.0),
+                    padding: const EdgeInsets.only(top: 75.0),
                     child: Align(
                       alignment: Alignment.center,
                       child: AvatarGlow(

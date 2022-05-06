@@ -53,7 +53,7 @@ flutter_native_splash:
   ios: true
 
   color: "#FFCC00"
-  image: "images/ben_splash.webp"
+  image: "images/ben_splash.webp.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -75,8 +75,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - images/ben2011.webp
-     - images/ben_splash.webp
+      - images/ben_image.webp
+      - images/ben_splash.webp.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
