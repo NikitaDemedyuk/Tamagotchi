@@ -21,7 +21,7 @@ class ChangeThemeBloc{
     }
   }
 
-  loadPreferences() async {
+  loadPreferencesTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     dynamic darkMode = prefs.get('dark');
 

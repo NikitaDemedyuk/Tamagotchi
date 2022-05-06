@@ -7,7 +7,7 @@ class ThemeProvider with ChangeNotifier{
 
   ThemeProvider() {
     _bloc = ChangeThemeBloc();
-    _bloc.loadPreferences();
+    _bloc.loadPreferencesTheme();
   }
 
   ChangeThemeBloc get bloc => _bloc;

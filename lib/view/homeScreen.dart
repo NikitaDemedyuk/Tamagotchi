@@ -18,8 +18,8 @@ PetBloc benBloc = PetBloc();
 class _HomeScreenState extends State<HomeScreen> {
   Widget imageSection() {
     return Image.asset(
-      'images/ben2011.webp',
-      fit: BoxFit.fill,
+      'images/ben_splash.webp',
+      fit: BoxFit.fitHeight,
     );
   }
 
@@ -119,249 +119,303 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               flex: 3,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(70, 70),
-                              shape: const CircleBorder(),
-                            ),
-                            child: const Align(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.videogame_asset,
-                                size: 35.0,
-                              ),
-                            ),
-                            onPressed: () async {
-                              ben.decrementFeed();
-                              benBloc.changeIndexFeedPet(ben.pet.indexFeed);
-                              benBloc.savePreferencesIndexFeed();
-                              benBloc.changeArrayFeed(ben.pet.isFeed);
-                              benBloc.savePreferencesIsFeed();
-                            },
+              child: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  imageSection(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0, right: 10.0),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(70, 70),
+                          shape: const CircleBorder(),
+                        ),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.videogame_asset,
+                            size: 35.0,
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(90, 90),
-                              shape: const CircleBorder(),
-                            ),
-                            child: const Align(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.set_meal_rounded,
-                                size: 40.0,
-                              ),
-                            ),
-                            onPressed: () async {
-                              ben.incrementFeed();
-                              benBloc.changeIndexFeedPet(ben.pet.indexFeed);
-                              benBloc.savePreferencesIndexFeed();
-                              benBloc.changeArrayFeed(ben.pet.isFeed);
-                              benBloc.savePreferencesIsFeed();
-                              ben.addElementToFeed(DateTime.now());
-                              benBloc.changeFeedTimeList(ben.feedList);
-                              benBloc.savePreferencesFeedTimeList();
-                            },
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(50, 50),
-                              shape: const CircleBorder(),
-                            ),
-                            child: const Align(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.highlight_remove,
-                                size: 30.0,
-                              ),
-                            ),
-                            onPressed: () async {
-                              ben.resetData();
-                              benBloc.changeIndexFeedPet(ben.pet.indexFeed);
-                              benBloc.savePreferencesIndexFeed();
-                              benBloc.changeArrayFeed(ben.pet.isFeed);
-                              benBloc.savePreferencesIsFeed();
-                              benBloc.changeIndexHappyPet(ben.pet.indexHappy);
-                              benBloc.savePreferencesIndexHappy();
-                              benBloc.changeArrayHappy(ben.pet.isHappy);
-                              benBloc.savePreferencesIsHappy();
-                              benBloc.changeFeedTimeList(ben.pet.feedList);
-                              benBloc.savePreferencesFeedTimeList();
-                            },
-                          ),
-                        ],
+                        ),
+                        onPressed: () async {
+                          ben.decrementFeed();
+                          benBloc.changeIndexFeedPet(ben.pet.indexFeed);
+                          benBloc.savePreferencesIndexFeed();
+                          benBloc.changeArrayFeed(ben.pet.isFeed);
+                          benBloc.savePreferencesIsFeed();
+                        },
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: <Widget>[
-                        imageSection(),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: AvatarGlow(
-                            glowColor: Colors.red,
-                            duration: Duration(seconds: 5),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ben.decrementHappy();
-                                benBloc.changeIndexHappyPet(ben.pet.indexHappy);
-                                benBloc.savePreferencesIndexHappy();
-                                benBloc.changeArrayHappy(ben.pet.isHappy);
-                                benBloc.savePreferencesIsHappy();
-                              },
-                              child: null,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.red.withOpacity(0.01),
-                                shape: const CircleBorder(),
-                              ),
-                            ),
-                            endRadius: 90,
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0, right: 20.0),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(50, 50),
+                          shape: const CircleBorder(),
                         ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: AvatarGlow(
-                            glowColor: Colors.red,
-                            duration: Duration(seconds: 5),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ben.decrementHappy();
-                                benBloc.changeIndexHappyPet(ben.pet.indexHappy);
-                                benBloc.savePreferencesIndexHappy();
-                                benBloc.changeArrayHappy(ben.pet.isHappy);
-                                benBloc.savePreferencesIsHappy();
-                              },
-                              child: null,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.red.withOpacity(0.01),
-                                shape: const CircleBorder(),
-                              ),
-                            ),
-                            endRadius: 120,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: AvatarGlow(
-                            glowColor: Colors.green,
-                            duration: Duration(seconds: 2),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ben.incrementHappy();
-                                benBloc.changeIndexHappyPet(ben.pet.indexHappy);
-                                benBloc.savePreferencesIndexHappy();
-                                benBloc.changeArrayHappy(ben.pet.isHappy);
-                                benBloc.savePreferencesIsHappy();
-                              },
-                              child: null,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.green.withOpacity(0.01),
-                                shape: const CircleBorder(),
-                              ),
-                            ),
-                            endRadius: 60,
-                          ),
-                        ),
-                        Align(
+                        child: const Align(
                           alignment: Alignment.center,
-                          child: AvatarGlow(
-                            glowColor: Colors.amber,
-                            duration: Duration(seconds: 3),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ben.incrementFeed();
-                                benBloc.changeIndexFeedPet(ben.pet.indexFeed);
-                                benBloc.savePreferencesIndexFeed();
-                                benBloc.changeArrayFeed(ben.pet.isFeed);
-                                benBloc.savePreferencesIsFeed();
-                              },
-                              child: null,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.amber.withOpacity(0.01),
-                                shape: const CircleBorder(),
-                              ),
-                            ),
-                            endRadius: 100,
+                          child: Icon(
+                            Icons.highlight_remove,
+                            size: 30.0,
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: AvatarGlow(
-                            glowColor: Colors.green,
-                            duration: Duration(seconds: 2),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ben.incrementHappy();
-                                benBloc.changeIndexHappyPet(ben.pet.indexHappy);
-                                benBloc.savePreferencesIndexHappy();
-                                benBloc.changeArrayHappy(ben.pet.isHappy);
-                                benBloc.savePreferencesIsHappy();
-                              },
-                              child: null,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.green.withOpacity(0.01),
-                                shape: const CircleBorder(),
-                              ),
-                            ),
-                            endRadius: 70,
+                        onPressed: () async {
+                          ben.resetData();
+                          benBloc.changeIndexFeedPet(ben.pet.indexFeed);
+                          benBloc.savePreferencesIndexFeed();
+                          benBloc.changeArrayFeed(ben.pet.isFeed);
+                          benBloc.savePreferencesIsFeed();
+                          benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                          benBloc.savePreferencesIndexHappy();
+                          benBloc.changeArrayHappy(ben.pet.isHappy);
+                          benBloc.savePreferencesIsHappy();
+                          benBloc.changeFeedTimeList(ben.pet.feedList);
+                          benBloc.savePreferencesFeedTimeList();
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(70, 70),
+                          shape: const CircleBorder(),
+                        ),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.set_meal_rounded,
+                            size: 40.0,
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: AvatarGlow(
-                            glowColor: Colors.green,
-                            duration: Duration(seconds: 2),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ben.incrementHappy();
-                                benBloc.changeIndexHappyPet(ben.pet.indexHappy);
-                                benBloc.savePreferencesIndexHappy();
-                                benBloc.changeArrayHappy(ben.pet.isHappy);
-                                benBloc.savePreferencesIsHappy();
-                              },
-                              child: null,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.green.withOpacity(0.01),
-                                shape: const CircleBorder(),
-                              ),
-                            ),
-                            endRadius: 70,
+                        onPressed: () async {
+                          ben.incrementFeed();
+                          benBloc.changeIndexFeedPet(ben.pet.indexFeed);
+                          benBloc.savePreferencesIndexFeed();
+                          benBloc.changeArrayFeed(ben.pet.isFeed);
+                          benBloc.savePreferencesIsFeed();
+                          ben.addElementToFeed(DateTime.now());
+                          benBloc.changeFeedTimeList(ben.feedList);
+                          benBloc.savePreferencesFeedTimeList();
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0, right: 100.0),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: AvatarGlow(
+                        glowColor: Colors.red,
+                        duration: Duration(seconds: 5),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.decrementHappy();
+                            benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                            benBloc.savePreferencesIndexHappy();
+                            benBloc.changeArrayHappy(ben.pet.isHappy);
+                            benBloc.savePreferencesIsHappy();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(30.0, 30.0),
+                            primary: Colors.red.withOpacity(0.01),
+                            shape: const CircleBorder(),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: AvatarGlow(
-                            glowColor: Colors.red,
-                            duration: Duration(seconds: 5),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ben.decrementHappy();
-                                benBloc.changeIndexHappyPet(ben.pet.indexHappy);
-                                benBloc.savePreferencesIndexHappy();
-                                benBloc.changeArrayHappy(ben.pet.isHappy);
-                                benBloc.savePreferencesIsHappy();
-                              },
-                              child: null,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.red.withOpacity(0.01),
-                                shape: const CircleBorder(),
-                              ),
-                            ),
-                            endRadius: 110,
+                        endRadius: 50,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0, left: 95.0),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: AvatarGlow(
+                        glowColor: Colors.red,
+                        duration: Duration(seconds: 5),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.decrementHappy();
+                            benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                            benBloc.savePreferencesIndexHappy();
+                            benBloc.changeArrayHappy(ben.pet.isHappy);
+                            benBloc.savePreferencesIsHappy();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(30.0, 30.0),
+                            primary: Colors.red.withOpacity(0.01),
+                            shape: const CircleBorder(),
                           ),
                         ),
-                      ],
+                        endRadius: 50,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 90.0, right: 20.0),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: AvatarGlow(
+                        glowColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.incrementHappy();
+                            benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                            benBloc.savePreferencesIndexHappy();
+                            benBloc.changeArrayHappy(ben.pet.isHappy);
+                            benBloc.savePreferencesIsHappy();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(30.0, 30.0),
+                            primary: Colors.green.withOpacity(0.01),
+                            shape: const CircleBorder(),
+                          ),
+                        ),
+                        endRadius: 60,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 90.0, left: 20.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: AvatarGlow(
+                        glowColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.incrementHappy();
+                            benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                            benBloc.savePreferencesIndexHappy();
+                            benBloc.changeArrayHappy(ben.pet.isHappy);
+                            benBloc.savePreferencesIsHappy();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(30.0, 30.0),
+                            primary: Colors.green.withOpacity(0.01),
+                            shape: const CircleBorder(),
+                          ),
+                        ),
+                        endRadius: 60,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 135.0, right: 6.0),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: AvatarGlow(
+                        glowColor: Colors.amber,
+                        duration: Duration(seconds: 3),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.incrementFeed();
+                            benBloc.changeIndexFeedPet(ben.pet.indexFeed);
+                            benBloc.savePreferencesIndexFeed();
+                            benBloc.changeArrayFeed(ben.pet.isFeed);
+                            benBloc.savePreferencesIsFeed();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(30, 30),
+                            primary: Colors.amber.withOpacity(0.01),
+                            shape: const CircleBorder(),
+                          ),
+                        ),
+                        endRadius: 60,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 45.0, right: 60.0),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: AvatarGlow(
+                        glowColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.incrementHappy();
+                            benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                            benBloc.savePreferencesIndexHappy();
+                            benBloc.changeArrayHappy(ben.pet.isHappy);
+                            benBloc.savePreferencesIsHappy();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(30, 30),
+                            primary: Colors.green.withOpacity(0.01),
+                            shape: const CircleBorder(),
+                          ),
+                        ),
+                        endRadius: 60,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 45.0, left: 50.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: AvatarGlow(
+                        glowColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.incrementHappy();
+                            benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                            benBloc.savePreferencesIndexHappy();
+                            benBloc.changeArrayHappy(ben.pet.isHappy);
+                            benBloc.savePreferencesIsHappy();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(30, 30),
+                            primary: Colors.green.withOpacity(0.01),
+                            shape: const CircleBorder(),
+                          ),
+                        ),
+                        endRadius: 60,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 75.0, right: 5.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: AvatarGlow(
+                        glowColor: Colors.red,
+                        duration: Duration(seconds: 5),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ben.decrementHappy();
+                            benBloc.changeIndexHappyPet(ben.pet.indexHappy);
+                            benBloc.savePreferencesIndexHappy();
+                            benBloc.changeArrayHappy(ben.pet.isHappy);
+                            benBloc.savePreferencesIsHappy();
+                          },
+                          child: null,
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(50, 50),
+                            primary: Colors.red.withOpacity(0.01),
+                            shape: const CircleBorder(),
+                          ),
+                        ),
+                        endRadius: 70,
+                      ),
                     ),
                   ),
                 ],

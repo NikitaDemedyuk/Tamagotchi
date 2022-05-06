@@ -65,8 +65,12 @@ class PetBloc {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? isFeed = prefs.getStringList('isFeedArray');
 
+    if (isFeed == null) {
+      return;
+    }
+
     List<bool> isFeedBool = [];
-    for (int i = 0; i < isFeed!.length; ++i) {
+    for (int i = 0; i < isFeed.length; ++i) {
       if (isFeed[i] == '1') {
         isFeedBool.add(true);
       } else {
@@ -140,8 +144,12 @@ class PetBloc {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? isHappy = prefs.getStringList('isHappyArray');
 
+    if (isHappy == null) {
+      return;
+    }
+
     List<bool> isHappyBool = [];
-    for (int i = 0; i < isHappy!.length; ++i) {
+    for (int i = 0; i < isHappy.length; ++i) {
       if (isHappy[i] == '1') {
         isHappyBool.add(true);
       } else {
