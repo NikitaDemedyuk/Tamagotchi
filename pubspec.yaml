@@ -51,9 +51,7 @@ dev_dependencies:
 
 flutter_native_splash:
   ios: true
-
   color: "#FFCC00"
-  image: "images/ben_splash.webp.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

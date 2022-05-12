@@ -41,7 +41,9 @@ class PetBloc {
 
     if (indexFeed != null) {
       if (indexFeed > timeFromLastFeed) {
-        changeIndexFeedPet(indexFeed - timeFromLastFeed);
+        for (int i = 0; i < timeFromLastFeed; ++i) {
+          changeIndexFeedPet(indexFeed - 1);
+        }
       } else {
         changeIndexFeedPet(0);
       }
@@ -89,8 +91,8 @@ class PetBloc {
       for (int i = 0; i < timeFromLastFeed; ++i) {
         if (indexFeed > 0) {
           isFeedBool[indexFeed - 1] = false;
-          indexFeed -= 1;
-          changeIndexFeedPet(indexFeed);
+          //indexFeed -= 1;
+          //changeIndexFeedPet(indexFeed);
         }
         if (indexFeed == 0) {
           isFeedBool[indexFeed] = false;
