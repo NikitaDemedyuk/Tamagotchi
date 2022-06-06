@@ -287,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: const CircleBorder(),
                           ),
                         ),
-                        endRadius: 60,
+                        endRadius: 70,
                       ),
                     ),
                   ),
