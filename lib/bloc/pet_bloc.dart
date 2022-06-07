@@ -79,20 +79,6 @@ class PetBloc {
         isFeedBool.add(false);
       }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     int indexFeed = prefs.getInt('indexFeed') ?? 0;
     String timeFromLastFeedString =
         prefs.getString('lastFeedTime') ?? DateTime.now().toIso8601String();
@@ -103,9 +89,9 @@ class PetBloc {
     if (timeFromLastFeed < 5) {
       for (int i = 0; i < timeFromLastFeed; ++i) {
         if (indexFeed > 0) {
-          isFeedBool[indexFeed - 1] = false;
-          //indexFeed -= 1;
-          //changeIndexFeedPet(indexFeed);
+          indexFeed -= 1;
+          isFeedBool[indexFeed] = false;
+          changeIndexFeedPet(indexFeed);
         }
         if (indexFeed == 0) {
           isFeedBool[indexFeed] = false;

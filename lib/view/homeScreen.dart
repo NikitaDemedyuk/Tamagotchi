@@ -144,10 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         onPressed: () async {
                           ben.decrementFeed();
-                          benBloc.changeIndexFeedPet(ben.pet.indexFeed);
-                          benBloc.savePreferencesIndexFeed();
                           benBloc.changeArrayFeed(ben.pet.isFeed);
                           benBloc.savePreferencesIsFeed();
+                          benBloc.changeIndexFeedPet(ben.pet.indexFeed);
+                          benBloc.savePreferencesIndexFeed();
                         },
                       ),
                     ),

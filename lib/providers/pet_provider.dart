@@ -34,8 +34,8 @@ class PetProvider with ChangeNotifier {
   
   void decrementFeed () {
     if (pet.indexFeed > 0) {
-      pet.isFeed[pet.indexFeed] = false;
       pet.indexFeed--;
+      pet.isFeed[pet.indexFeed] = false;
     }
     notifyListeners();
   }
