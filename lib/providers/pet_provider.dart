@@ -15,19 +15,6 @@ class PetProvider with ChangeNotifier {
   PetBloc get petBloc => _petBloc;
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
   PetProvider() {
     _petBloc = PetBloc();
     _petBloc.loadPreferencesIndexFeed();
