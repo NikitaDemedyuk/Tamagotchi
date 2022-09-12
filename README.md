@@ -9,7 +9,7 @@
   * [Quick references](#quick-references)
   * [Documentation](#quick-references)
   * [Team](#quick-references)
-- [II. Development](#ii-разработка)
+- [II. Development](#ii-development)
   * [Рабочая среда](#рабочая-среда)
   * [Extensions for VScode](#расширения-для-vscode)
   * [Общие требования к коду](#общие-требования-к-коду)
