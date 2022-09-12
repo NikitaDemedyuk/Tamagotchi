@@ -17,7 +17,7 @@
   * [Dependency Injection](#dependency-injection)
   * [Архитектура экранов](#общие-требования-к-коду)
 
-# I. Общая информация о проекте
+# I. General information about project
 
 ## Progect description
 
