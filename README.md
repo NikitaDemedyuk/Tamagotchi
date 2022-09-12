@@ -4,12 +4,12 @@
 
 # Content
 
-- [I. General information about project](#i-general-information-about-project)
-  * [Project description](#project-description)
+- [I. General information about project](#i-General-information-about-project)
+  * [Project description](#Project-description)
   * [Quick references](#quick-references)
   * [Documentation](#quick-references)
   * [Team](#quick-references)
-- [II. Development](#ii-development)
+- [II. Development](#ii-Development)
   * [Рабочая среда](#рабочая-среда)
   * [Extensions for VScode](#расширения-для-vscode)
   * [Общие требования к коду](#общие-требования-к-коду)
