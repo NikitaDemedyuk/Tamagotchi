@@ -8,7 +8,7 @@
   - [Project description](#project-description)
   - [Quick references](#quick-references)
   
-# General information about project <a name="i-general-information-about-project"></a>
+# General information about project 
 
 33333333333333333333333333333333333333
 33333333333333333333333333333333333333
@@ -32,7 +32,7 @@
 33333333333333333333333333333333333333
 
 
-## Progect description <a name="project-description"></a>
+## Progect description 
 
 33333333333333333333333333333333333333
 33333333333333333333333333333333333333
